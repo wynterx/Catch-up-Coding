@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Commit from '../Components/Commit';
-
 class Code extends Component {
   state = {
     commits: [],
@@ -11,7 +10,7 @@ class Code extends Component {
   };
   componentDidMount() {
     axios
-      .get('https://api.github.com/repos/poomchaio/DB-Project/commits')
+      .get('https://api.github.com/repos/Poomchaio/SideMenu/commits')
       .then(response => {
         const data = response.data.map(commitDetail => {
           const { sha, commit, html_url } = commitDetail;
@@ -27,6 +26,7 @@ class Code extends Component {
       });
   }
   render() {
+    console.log('code');
     return <Commit commits={this.state.commits} />;
   }
 }

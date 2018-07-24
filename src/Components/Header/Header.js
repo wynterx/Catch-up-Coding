@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Menu, Image } from 'semantic-ui-react';
+import { Menu } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 export default class Header extends Component {
   static PropTypes = {
     list: PropTypes.array,
@@ -9,7 +9,7 @@ export default class Header extends Component {
     handleLogin: PropTypes.func,
   };
   static defaultProps = {
-    list: [{ name: 'Q&A', to: '/qa' }, { name: 'code', to: '/code' }],
+    list: [{ name: 'Q&A', to: '/main/qa' }, { name: 'code', to: '/main/code' }],
     isLogin: false,
     handleLogin: () => {},
   };
