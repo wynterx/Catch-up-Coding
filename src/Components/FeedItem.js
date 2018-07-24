@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Feed, Icon, Divider, Button } from 'semantic-ui-react';
 import { Flex, Box, Input } from 'rebass';
 import styled from 'styled-components';
+
+import AnswerItem from './AnswerItem';
 import Text from './Text/Text';
 
 const GrayFlex = styled(Flex)`
@@ -53,16 +55,7 @@ class FeedItem extends Component {
           </GrayFlex>
           {expand && (
             <Feed>
-              {answers.map(({ user, answer }) => (
-                <Feed.Event>
-                  <Feed.Content>
-                    <Feed.User>
-                      <Text>{user}</Text>
-                    </Feed.User>
-                    : {answer}
-                  </Feed.Content>
-                </Feed.Event>
-              ))}
+              {answers.map(({ user, answer }) => <AnswerItem user={user} answer={answer} />)}
             </Feed>
           )}
           <Divider />
