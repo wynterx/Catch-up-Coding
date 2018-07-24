@@ -3,22 +3,22 @@ import { Button, Checkbox, Form, Input, Radio, Select, TextArea } from 'semantic
 import { Flex, Box, Image, Circle } from 'rebass';
 import PropTypes from 'prop-types';
 
-const sectionOptions = [
-  { key: '1', text: 'section 1', value: '1' },
-  { key: '2', text: 'section 2', value: '2' },
-  { key: '3', text: 'section 3', value: '3' },
-];
-
 class QuestionForm extends Component {
   static PropTypes = {
     handleFormSubmit: PropTypes.func,
     imgSrc: PropTypes.string,
+    sections: PropTypes.shape({
+      key: PropTypes.string,
+      text: PropTypes.string,
+      value: PropTypes.string,
+    }),
   };
 
   static defaultProps = {
     handleFormSubmit: () => {},
     imgSrc:
       'https://s-media-cache-ak0.pinimg.com/originals/4a/33/0f/4a330f8fabfda8fd3009543e816951b1.gif',
+    sections: [],
   };
 
   state = { question: '', section: '' };
@@ -36,7 +36,7 @@ class QuestionForm extends Component {
   };
   render() {
     const { question, section } = this.state;
-    const { imgSrc } = this.props;
+    const { imgSrc, sections } = this.props;
     return (
       <Flex mx={4} justifyContent="center" alignItems="flex-start" flexWrap="wrap">
         <Circle size={128} bg="pink" mx={2} my={2}>
@@ -57,7 +57,7 @@ class QuestionForm extends Component {
               <Form.Field
                 control={Select}
                 name="section"
-                options={sectionOptions}
+                options={sections}
                 placeholder="Section"
                 value={section}
                 onChange={this.handleChange}
