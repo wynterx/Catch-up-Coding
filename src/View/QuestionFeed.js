@@ -1,8 +1,10 @@
 import React, { Component, Fragment } from 'react';
-import { Button, Checkbox, Form, Input, Radio, Select, TextArea } from 'semantic-ui-react';
+import { Feed } from 'semantic-ui-react';
 import { Flex, Box, Image } from 'rebass';
 import PropTypes from 'prop-types';
 import QuestionForm from '../Components/QuestionForm';
+
+import FeedItem from '../Components/FeedItem';
 
 const sectionOptions = [
   { key: '1', text: 'section 1', value: '1' },
@@ -55,6 +57,19 @@ class QuestionFeed extends Component {
     return (
       <Fragment>
         <QuestionForm handleFormSubmit={this.handleFormSubmit} />
+        <Flex mx={4} justifyContent="center" alignItems="flex-start" w="70%">
+          <Feed>
+            {[1, 2, 2].map(e => (
+              <FeedItem
+                user="ching"
+                question="asdasdasdasjkdhaks"
+                likes={5}
+                section={1}
+                answers={[{ user: 'hh', answer: 'asdas' }, { user: 'gsd', answer: 'asdaasdasds' }]}
+              />
+            ))}
+          </Feed>
+        </Flex>
       </Fragment>
     );
   }
