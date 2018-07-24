@@ -1,10 +1,11 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-import GitList from './Components/GitList';
-import Home from './Views/Home';
+import Main from './Main';
+import Header from './Components/Header';
 
 const App = () => (
+<<<<<<< HEAD
   <Router>
     <div>
       <Route exact path="/" component={Home} />
@@ -12,5 +13,10 @@ const App = () => (
       <Route path="/gitlist" component={GitList} />
     </div>
   </Router>
+=======
+  <div>
+    <Main />
+  </div>
+>>>>>>> Poomchaio/master
 );
 export default App;
