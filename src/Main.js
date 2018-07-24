@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import Header from './Components/Header';
 import Code from './View/Code';
-import Home from './Components/Home';
+import QuestionFeed from './Components/QuestionFeed';
 
 export default class Main extends Component {
   render() {
@@ -11,7 +11,7 @@ export default class Main extends Component {
       <Router>
         <Fragment>
           <Header isLogin />
-          <Route exact path="/" component={Home} />
+          <Route exact path="/qa" component={QuestionFeed} />
           <Route path="/code" component={Code} />
         </Fragment>
       </Router>

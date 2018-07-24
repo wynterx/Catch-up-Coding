@@ -9,7 +9,7 @@ export default class Header extends Component {
     handleLogin: PropTypes.func,
   };
   static defaultProps = {
-    list: [{ name: 'Q&A', to: '/' }, { name: 'code', to: '/gitlist' }],
+    list: [{ name: 'Q&A', to: '/qa' }, { name: 'code', to: '/code' }],
     isLogin: false,
     handleLogin: () => {},
   };
