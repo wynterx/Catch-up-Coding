@@ -3,12 +3,7 @@ import { Button, Checkbox, Form, Input, Radio, Select, TextArea } from 'semantic
 import { Flex, Box, Image } from 'rebass';
 import PropTypes from 'prop-types';
 import QuestionForm from '../Components/QuestionForm';
-
-const sectionOptions = [
-  { key: '1', text: 'section 1', value: '1' },
-  { key: '2', text: 'section 2', value: '2' },
-  { key: '3', text: 'section 3', value: '3' },
-];
+import QuestionFilter from '../Components/QuestionFilter';
 
 class QuestionFeed extends Component {
   static PropTypes = {
@@ -32,7 +27,11 @@ class QuestionFeed extends Component {
       },
     ],
     filter: {},
-    section: [],
+    sections: [
+      { key: '1', text: 'section 1', value: '1' },
+      { key: '2', text: 'section 2', value: '2' },
+      { key: '3', text: 'section 3', value: '3' },
+    ],
   };
 
   handleFormSubmit = newItem => {
@@ -51,11 +50,21 @@ class QuestionFeed extends Component {
     console.log(this.state.questions);
   };
   render() {
-    const { value } = this.state;
+    const { user, imgSrc } = this.props;
+    const { questions, filter, sections } = this.state;
     return (
-      <Fragment>
-        <QuestionForm handleFormSubmit={this.handleFormSubmit} />
-      </Fragment>
+      <Flex flexWrap="wrap" m={3}>
+        <Box width={1}>
+          <QuestionForm
+            imgSrc={imgSrc}
+            sections={sections}
+            handleFormSubmit={this.handleFormSubmit}
+          />
+        </Box>
+        <Box width={1 / 4}>
+          <QuestionFilter />
+        </Box>
+      </Flex>
     );
   }
 }
