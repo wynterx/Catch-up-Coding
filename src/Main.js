@@ -3,7 +3,7 @@ import { Router, Route } from 'react-router-dom';
 
 import Header from './Components/Header';
 import Code from './View/Code';
-import QuestionFeed from './Components/QuestionFeed';
+import QuestionFeed from './View/QuestionFeed';
 
 export default class Main extends Component {
   render() {
