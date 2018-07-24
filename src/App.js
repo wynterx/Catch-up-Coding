@@ -2,21 +2,14 @@ import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import Main from './Main';
-import Header from './Components/Header';
+import Home from './View/Home';
 
 const App = () => (
-<<<<<<< HEAD
   <Router>
     <div>
       <Route exact path="/" component={Home} />
-      <Route path="/qa" component={GitList} />
-      <Route path="/gitlist" component={GitList} />
+      <Route path="/qa" component={Main} />
     </div>
   </Router>
-=======
-  <div>
-    <Main />
-  </div>
->>>>>>> Poomchaio/master
 );
 export default App;
