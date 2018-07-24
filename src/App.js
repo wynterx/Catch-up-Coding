@@ -3,26 +3,12 @@ import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
-import GitList from './Components/GitList';
-import Home from './Views/Home';
+import Main from './Main';
+import Header from './Components/Header';
 
 const App = () => (
-  <Router>
-    <div>
-      <ul>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        <li>
-          <Link to="/gitlist">Git List</Link>
-        </li>
-      </ul>
-
-      <hr />
-
-      <Route exact path="/" component={Home} />
-      <Route path="/gitlist" component={GitList} />
-    </div>
-  </Router>
+  <div>
+    <Main />
+  </div>
 );
 export default App;
