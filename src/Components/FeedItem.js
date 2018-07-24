@@ -9,8 +9,17 @@ const GrayFlex = styled(Flex)`
   border-radius: 6px;
 `;
 class FeedItem extends Component {
+  state = {
+    expand: false,
+  };
+
+  handleExpand = () => {
+    this.setState({ expand: !this.state.expand });
+  };
+
   render() {
     const { user, question, section, likes, answers } = this.props;
+    const { expand } = this.state;
     return (
       <Feed.Event>
         <Icon size="huge" name="user circle outline" />
@@ -20,6 +29,13 @@ class FeedItem extends Component {
               <Text>{user}</Text>
             </Feed.User>
             <Feed.Date>Section {section}</Feed.Date>
+            <Button
+              basic
+              size="mini"
+              floated="right"
+              icon={expand ? 'chevron up' : 'chevron down'}
+              onClick={this.handleExpand}
+            />
           </Feed.Summary>
           {question}
           <br />
@@ -35,19 +51,20 @@ class FeedItem extends Component {
             <Input type="text" placeholder="Answer here !" />
             <Button type="submit" icon="send" />
           </GrayFlex>
-
-          <Feed>
-            {answers.map(({ user, answer }) => (
-              <Feed.Event>
-                <Feed.Content>
-                  <Feed.User>
-                    <Text>{user}</Text>
-                  </Feed.User>
-                  : {answer}
-                </Feed.Content>
-              </Feed.Event>
-            ))}
-          </Feed>
+          {expand && (
+            <Feed>
+              {answers.map(({ user, answer }) => (
+                <Feed.Event>
+                  <Feed.Content>
+                    <Feed.User>
+                      <Text>{user}</Text>
+                    </Feed.User>
+                    : {answer}
+                  </Feed.Content>
+                </Feed.Event>
+              ))}
+            </Feed>
+          )}
           <Divider />
         </Feed.Content>
       </Feed.Event>
