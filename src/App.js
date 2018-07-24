@@ -3,12 +3,12 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import Main from './Main';
 import Home from './View/Home';
-
+import Code from './View/Code';
 const App = () => (
   <Router>
     <div>
       <Route exact path="/" component={Home} />
-      <Route path="/qa" component={Main} />
+      <Route path="/main" component={Main} />
     </div>
   </Router>
 );
