@@ -3,3 +3,8 @@ body {
   margin: 0;
   padding: 0;
 }
+
+.ui.icon.button,
+.ui.icon.buttons .button {
+  margin: 0;
+}

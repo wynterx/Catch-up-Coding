@@ -1,9 +1,20 @@
 import React, { Component, Fragment } from 'react';
-import { Button, Checkbox, Form, Input, Radio, Select, TextArea } from 'semantic-ui-react';
+import { Feed } from 'semantic-ui-react';
 import { Flex, Box, Image } from 'rebass';
 import PropTypes from 'prop-types';
 import QuestionForm from '../Components/QuestionForm';
+<<<<<<< HEAD
 import QuestionFilter from '../Components/QuestionFilter';
+=======
+
+import FeedItem from '../Components/FeedItem';
+
+const sectionOptions = [
+  { key: '1', text: 'section 1', value: '1' },
+  { key: '2', text: 'section 2', value: '2' },
+  { key: '3', text: 'section 3', value: '3' },
+];
+>>>>>>> c849287c56cbbc6aecb275dedaa95b96c11701c9
 
 class QuestionFeed extends Component {
   static PropTypes = {
@@ -53,6 +64,7 @@ class QuestionFeed extends Component {
     const { user, imgSrc } = this.props;
     const { questions, filter, sections } = this.state;
     return (
+<<<<<<< HEAD
       <Flex flexWrap="wrap" m={3}>
         <Box width={1}>
           <QuestionForm
@@ -65,6 +77,24 @@ class QuestionFeed extends Component {
           <QuestionFilter />
         </Box>
       </Flex>
+=======
+      <Fragment>
+        <QuestionForm handleFormSubmit={this.handleFormSubmit} />
+        <Flex mx={4} justifyContent="center" alignItems="flex-start" w="70%">
+          <Feed>
+            {[1, 2, 2].map(e => (
+              <FeedItem
+                user="ching"
+                question="asdasdasdasjkdhaks"
+                likes={5}
+                section={1}
+                answers={[{ user: 'hh', answer: 'asdas' }, { user: 'gsd', answer: 'asdaasdasds' }]}
+              />
+            ))}
+          </Feed>
+        </Flex>
+      </Fragment>
+>>>>>>> c849287c56cbbc6aecb275dedaa95b96c11701c9
     );
   }
 }
