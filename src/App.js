@@ -1,10 +1,6 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import React from 'react';
 
 import Main from './Main';
-import Header from './Components/Header';
 
 const App = () => (
   <div>
