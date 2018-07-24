@@ -3,14 +3,8 @@ import { Feed } from 'semantic-ui-react';
 import { Flex, Box, Image } from 'rebass';
 import PropTypes from 'prop-types';
 import QuestionForm from '../Components/QuestionForm';
-
+import QuestionFilter from '../Components/QuestionFilter';
 import FeedItem from '../Components/FeedItem';
-
-const sectionOptions = [
-  { key: '1', text: 'section 1', value: '1' },
-  { key: '2', text: 'section 2', value: '2' },
-  { key: '3', text: 'section 3', value: '3' },
-];
 
 class QuestionFeed extends Component {
   static PropTypes = {
@@ -34,7 +28,11 @@ class QuestionFeed extends Component {
       },
     ],
     filter: {},
-    section: [],
+    sections: [
+      { key: '1', text: 'section 1', value: '1' },
+      { key: '2', text: 'section 2', value: '2' },
+      { key: '3', text: 'section 3', value: '3' },
+    ],
   };
 
   handleFormSubmit = newItem => {
@@ -53,11 +51,22 @@ class QuestionFeed extends Component {
     console.log(this.state.questions);
   };
   render() {
-    const { value } = this.state;
+    const { user, imgSrc } = this.props;
+    const { questions, filter, sections } = this.state;
     return (
-      <Fragment>
-        <QuestionForm handleFormSubmit={this.handleFormSubmit} />
-        <Flex mx={4} justifyContent="center" alignItems="flex-start" w="70%">
+      <Flex flexWrap="wrap" m={3}>
+        <Box width={1}>
+          <QuestionForm
+            imgSrc={imgSrc}
+            sections={sections}
+            handleFormSubmit={this.handleFormSubmit}
+          />
+        </Box>
+
+        <Box width={1 / 4}>
+          <QuestionFilter />
+        </Box>
+        <Box width={3 / 4}>
           <Feed>
             {[1, 2, 2].map(e => (
               <FeedItem
@@ -69,8 +78,8 @@ class QuestionFeed extends Component {
               />
             ))}
           </Feed>
-        </Flex>
-      </Fragment>
+        </Box>
+      </Flex>
     );
   }
 }
