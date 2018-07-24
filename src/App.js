@@ -4,11 +4,7 @@ import './App.css';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 import GitList from './Components/GitList';
-const Home = () => (
-  <div>
-    <h2>Home</h2>
-  </div>
-);
+import Home from './Views/Home';
 
 const App = () => (
   <Router>
