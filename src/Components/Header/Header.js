@@ -11,7 +11,7 @@ export default class Header extends Component {
     handleLogin: PropTypes.func,
   };
   static defaultProps = {
-    list: [{ title: 'Q&A', to: '/' }, { title: 'code', to: '/gitlist' }],
+    list: [{ title: 'Q&A', to: '/' }, { title: 'code', to: '/code' }],
     activeItem: 'Q&A',
     handleItemClick: () => {},
     isLogin: false,

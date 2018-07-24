@@ -6,8 +6,6 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import Main from './Main';
 import Header from './Components/Header';
 
-import GitList from './Components/GitList';
-
 const App = () => (
   <div>
     <Main />
