@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-class GitList extends Component {
+class Commit extends Component {
   state = {
     commitList: [],
   };
@@ -22,4 +22,4 @@ class GitList extends Component {
   }
 }
 
-export default GitList;
+export default Commit;

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import GitList from '../Components/GitList';
+import Commit from '../Components/Commit';
 
 class Code extends Component {
   state = {
@@ -27,7 +27,7 @@ class Code extends Component {
       });
   }
   render() {
-    return <GitList commits={this.state.commits} />;
+    return <Commit commits={this.state.commits} />;
   }
 }
 
