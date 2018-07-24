@@ -3,7 +3,8 @@ import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
-import GitList from './Components/GitList';
+import Code from './View/Code';
+
 const Home = () => (
   <div>
     <h2>Home</h2>
@@ -25,7 +26,7 @@ const App = () => (
       <hr />
 
       <Route exact path="/" component={Home} />
-      <Route path="/gitlist" component={GitList} />
+      <Route path="/gitlist" component={Code} />
     </div>
   </Router>
 );

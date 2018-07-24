@@ -1,8 +1,24 @@
 import React, { Component } from 'react';
-
 class GitList extends Component {
+  state = {
+    commitList: [],
+  };
+
   render() {
-    return <h1>Hello, {this.props.name}</h1>;
+    console.log(this.props);
+    const { commits } = this.props;
+    return (
+      <div>
+        {commits.map(commit => {
+          return (
+            <div>
+              <a href={commit.html_url}>{commit.sha.slice(0, 5)}</a>
+              <p>{commit.commit.message}</p>
+            </div>
+          );
+        })}
+      </div>
+    );
   }
 }
 
