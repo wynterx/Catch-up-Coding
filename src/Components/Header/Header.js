@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Link, Redirect } from 'react-router-dom';
 import Text from '../Text/Text';
 export default class Header extends Component {
-  static PropTypes = {
+  static propTypes = {
     list: PropTypes.array,
     isLogin: PropTypes.bool,
   };
@@ -48,7 +48,7 @@ export default class Header extends Component {
         })}
         <Menu.Menu position="right">
           <Menu.Item>
-            <Icon name="user" color="blue" /> <Text color="blue">{user}</Text>
+            <Icon name="user" color="blue" /> <Text primary>{user}</Text>
           </Menu.Item>
           <Menu.Item name={isLogin ? 'logout' : 'login'} onClick={this.handleLogin} />
         </Menu.Menu>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Feed } from 'semantic-ui-react';
-import { Flex, Box } from 'rebass';
+import { Flex, Box, Divider } from 'rebass';
 
 import PropTypes from 'prop-types';
 import QuestionForm from '../Components/QuestionForm';
@@ -17,7 +17,7 @@ const filterData = (items, filter, user) => {
   return filterItem;
 };
 class QuestionFeed extends Component {
-  static PropTypes = {
+  static propTypes = {
     user: PropTypes.string,
     imgSrc: PropTypes.string,
   };
@@ -42,11 +42,7 @@ class QuestionFeed extends Component {
 
     this.firebaseCallback = this.firebaseRef.on('value', snap => {
       const questions = snap.val();
-      const result = Object.keys(questions).map(function(key) {
-        return questions[key];
-      });
-      console.log(result, 'dss');
-      this.setState({ questions: result });
+      this.setState({ questions: questions });
     });
   }
 
@@ -57,10 +53,8 @@ class QuestionFeed extends Component {
   handleFormSubmit = newItem => {
     const { user, imgSrc } = this.props;
 
-    const countQuestion = this.state.questions.length + 1;
-    this.firebaseRef.child(countQuestion).set({
+    this.firebaseRef.push({
       ...newItem,
-      id: countQuestion,
       imgSrc,
       user,
       likes: 0,
@@ -76,23 +70,28 @@ class QuestionFeed extends Component {
   render() {
     const { user, imgSrc } = this.props;
     const { questions, filter, sections } = this.state;
-    const filteredFeedItem = filterData(questions, filter, user);
+    const questionArray = questions
+      ? Object.keys(questions).map(function(key) {
+          return { ...questions[key], id: key };
+        })
+      : [];
+    const filteredFeedItem = filterData(questionArray, filter, user);
     return (
       <Flex flexWrap="wrap" m={3} justifyContent="center">
-        <Box width={1} mb={4}>
+        <Box width={1}>
           <QuestionForm
             imgSrc={imgSrc}
             sections={sections}
             handleFormSubmit={this.handleFormSubmit}
           />
+          <Divider />
         </Box>
-
         <Box width={[1, 1 / 5]} mb={3}>
           <QuestionFilter sections={sections} handleFilter={this.handleFilter} />
         </Box>
         <Box width={[1, 3 / 5]} pl={3}>
           <Feed>
-            {filteredFeedItem.map(e => {
+            {questionArray.map(e => {
               return (
                 <FeedItem
                   displayName={user}
