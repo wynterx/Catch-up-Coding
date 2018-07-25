@@ -23,7 +23,7 @@ class FeedItem extends Component {
   handleAnswer = () => {
     //get user name
     console.log(this.props);
-
+    const displayName = this.props.displayName;
     const countAnswer = this.props.answers ? Object.keys(this.props.answers).length : 0;
     const questionIndex = this.props.id - 1;
     console.log(countAnswer, questionIndex, 'ssdsfs');
@@ -33,7 +33,7 @@ class FeedItem extends Component {
       .child('answers')
       .child(countAnswer)
       .set({
-        user: 'userans2',
+        user: displayName,
         answer: this.state.text,
       });
   };

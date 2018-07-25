@@ -95,6 +95,7 @@ class QuestionFeed extends Component {
             {filteredFeedItem.map(e => {
               return (
                 <FeedItem
+                  displayName={user}
                   sections={sections}
                   firebase={this.firebaseRef}
                   answers={e.answers}
