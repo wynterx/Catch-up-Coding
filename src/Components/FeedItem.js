@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Feed, Icon, Button } from 'semantic-ui-react';
-import { Flex, Box, Input } from 'rebass';
+import { Flex, Box, Input, Image } from 'rebass';
 import styled from 'styled-components';
 
 import AnswerItem from './AnswerItem';
@@ -55,11 +55,13 @@ class FeedItem extends Component {
   };
 
   render() {
-    const { user, question, section, likes, answers, sections } = this.props;
+    const { user, imgSrc, question, section, likes, answers, sections } = this.props;
     const { expand } = this.state;
     return (
       <Feed.Event style={{ borderBottom: '1px solid #eaeaea', marginBottom: '24px' }}>
-        <Icon size="huge" name="user circle outline" />
+        <Box>
+          <Image src={imgSrc} width={50} mx={2} alignItems="flex-start" />
+        </Box>
         <Feed.Content>
           <Feed.Summary>
             <Feed.User>
