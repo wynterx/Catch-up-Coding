@@ -95,6 +95,7 @@ class QuestionFeed extends Component {
             {feedItem.map(e => {
               return (
                 <FeedItem
+                  displayName={user}
                   {...e}
                   questionId={e.id}
                   answers={e.answers}
