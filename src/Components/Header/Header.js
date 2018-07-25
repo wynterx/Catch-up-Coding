@@ -13,6 +13,7 @@ export default class Header extends Component {
     isLogin: false,
     handleLogin: () => {},
   };
+
   state = {
     activeItem: 'Q&A',
   };
