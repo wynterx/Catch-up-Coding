@@ -28,6 +28,7 @@ class Home extends Component {
   };
   render() {
     if (this.state.redirect) {
+      console.log('hereee');
       this.props.history.push({
         pathname: '/main/qa/',
         state: { user: this.state.displayName },
