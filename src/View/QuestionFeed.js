@@ -45,6 +45,7 @@ class QuestionFeed extends Component {
       const result = Object.keys(questions).map(function(key) {
         return questions[key];
       });
+      console.log(result, 'dss');
       this.setState({ questions: result });
     });
   }
@@ -56,7 +57,7 @@ class QuestionFeed extends Component {
   handleFormSubmit = newItem => {
     const { user, imgSrc } = this.props;
 
-    const countQuestion = this.state.questions.length;
+    const countQuestion = this.state.questions.length + 1;
     this.firebaseRef.child(countQuestion).set({
       ...newItem,
       id: countQuestion,
@@ -76,10 +77,9 @@ class QuestionFeed extends Component {
     const { user, imgSrc } = this.props;
     const { questions, filter, sections } = this.state;
     const filteredFeedItem = filterData(questions, filter, user);
-    console.log(filteredFeedItem);
     return (
       <Flex flexWrap="wrap" m={3} justifyContent="center">
-        <Box width={1}>
+        <Box width={1} mb={4}>
           <QuestionForm
             imgSrc={imgSrc}
             sections={sections}
@@ -93,8 +93,14 @@ class QuestionFeed extends Component {
         <Box width={[1, 3 / 5]} pl={3}>
           <Feed>
             {filteredFeedItem.map(e => {
-              console.log(e);
-              return <FeedItem sections={sections} firebase={this.firebaseRef} {...e} />;
+              return (
+                <FeedItem
+                  sections={sections}
+                  firebase={this.firebaseRef}
+                  answers={e.answers}
+                  {...e}
+                />
+              );
             })}
           </Feed>
         </Box>
