@@ -1,6 +1,7 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { Feed } from 'semantic-ui-react';
 import { Flex, Box, Image, Border } from 'rebass';
+
 import PropTypes from 'prop-types';
 import QuestionForm from '../Components/QuestionForm';
 import QuestionFilter from '../Components/QuestionFilter';

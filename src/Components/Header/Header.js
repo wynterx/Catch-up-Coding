@@ -1,28 +1,37 @@
 import React, { Component } from 'react';
-import { Menu } from 'semantic-ui-react';
+import { Menu, Icon } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+import Text from '../Text/Text';
 export default class Header extends Component {
   static PropTypes = {
     list: PropTypes.array,
     isLogin: PropTypes.bool,
-    handleLogin: PropTypes.func,
   };
   static defaultProps = {
     list: [{ name: 'Q&A', to: '/main/qa' }, { name: 'code', to: '/main/code' }],
-    isLogin: false,
-    handleLogin: () => {},
+    isLogin: true,
   };
 
   state = {
     activeItem: 'Q&A',
+    redirect: false,
   };
   handleItemClick = (e, { name }) => {
     this.setState({ activeItem: name });
   };
+
+  handleLogin = () => {
+    this.setState({ redirect: true });
+  };
+
   render() {
-    const { list, isLogin, handleLogin } = this.props;
-    const { activeItem } = this.state;
+    const { list, isLogin, user } = this.props;
+    const { activeItem, redirect } = this.state;
+    console.log('thisprops', this.props);
+    if (redirect) {
+      return <Redirect to="/" />;
+    }
     return (
       <Menu tabular>
         {list.map(item => {
@@ -38,7 +47,10 @@ export default class Header extends Component {
           );
         })}
         <Menu.Menu position="right">
-          <Menu.Item name={isLogin ? 'logout' : 'login'} onClick={handleLogin} />
+          <Menu.Item>
+            <Icon name="user" /> <Text>{user}</Text>
+          </Menu.Item>
+          <Menu.Item name={isLogin ? 'logout' : 'login'} onClick={this.handleLogin} />
         </Menu.Menu>
       </Menu>
     );
