@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Button, Form, Radio, Select, TextArea, Icon } from 'semantic-ui-react';
-import { Flex, Box, Image, Circle, Input, Border, Checkbox, Label } from 'rebass';
+import { Button, Form, Select } from 'semantic-ui-react';
+import { Flex, Box } from 'rebass';
 import PropTypes from 'prop-types';
 import Text from '../Text/Text';
 
