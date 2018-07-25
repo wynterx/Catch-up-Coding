@@ -22,9 +22,10 @@ class FeedItem extends Component {
 
   handleAnswer = () => {
     //get user name
-
+    console.log(this.props);
     const countAnswer = Object.keys(this.props.answers).length;
-    const questionIndex = this.props.questionId - 1;
+    const questionIndex = this.props.id - 1;
+    console.log(countAnswer, questionIndex, 'ssdsfs');
 
     this.props.firebase
       .child(questionIndex)
@@ -50,10 +51,7 @@ class FeedItem extends Component {
   };
 
   render() {
-    const { user, question, section, likes, answers } = this.props;
-    // const result = Object.keys(answers).map(function(key) {
-    //   return answers[key];
-    // });
+    const { user, question, section, likes, answers, sections } = this.props;
     const { expand } = this.state;
     return (
       <Feed.Event>

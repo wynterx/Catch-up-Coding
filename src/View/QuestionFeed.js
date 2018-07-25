@@ -12,6 +12,8 @@ const filterData = (items, filter, user) => {
   let filterItem = items;
   if (filter.section) filterItem = filterItem.filter(item => filter.section === item.section);
   if (filter.postByUser) filterItem = filterItem.filter(item => user === item.user);
+  if (filter.keyword)
+    filterItem = filterItem.filter(item => item.question.indexOf(filter.keyword) >= 0);
   return filterItem;
 };
 class QuestionFeed extends Component {
@@ -28,10 +30,10 @@ class QuestionFeed extends Component {
     questions: [],
     filter: {},
     sections: [
-      { key: 'all', text: 'All sections', value: '' },
-      { key: '1', text: 'section 1', value: 'section 1' },
-      { key: '2', text: 'section 2', value: 'section 2' },
-      { key: '3', text: 'section 3', value: 'section 3' },
+      { key: 'all', text: 'All sections', value: 0 },
+      { key: '1', text: 'section 1', value: 1 },
+      { key: '2', text: 'section 2', value: 2 },
+      { key: '3', text: 'section 3', value: 3 },
     ],
   };
 
@@ -73,8 +75,8 @@ class QuestionFeed extends Component {
   render() {
     const { user, imgSrc } = this.props;
     const { questions, filter, sections } = this.state;
-    const feedItem = filterData(questions, filter, user);
-
+    const filteredFeedItem = filterData(questions, filter, user);
+    console.log(filteredFeedItem);
     return (
       <Flex flexWrap="wrap" m={3} justifyContent="center">
         <Box width={1}>
@@ -90,15 +92,9 @@ class QuestionFeed extends Component {
         </Box>
         <Box width={[1, 3 / 5]} pl={3}>
           <Feed>
-            {feedItem.map(e => {
-              return (
-                <FeedItem
-                  {...e}
-                  questionId={e.id}
-                  answers={e.answers}
-                  firebase={this.firebaseRef}
-                />
-              );
+            {filteredFeedItem.map(e => {
+              console.log(e);
+              return <FeedItem sections={sections} firebase={this.firebaseRef} {...e} />;
             })}
           </Feed>
         </Box>
