@@ -78,13 +78,14 @@ class QuestionFeed extends Component {
     const filteredFeedItem = filterData(questionArray, filter, user);
     return (
       <Flex flexWrap="wrap" m={3} justifyContent="center">
-        <Box width={1}>
+        <Box width={1} mb={3}>
           <QuestionForm
             imgSrc={imgSrc}
             sections={sections}
             handleFormSubmit={this.handleFormSubmit}
           />
-          <Divider />
+          <Box m={3} />
+          <Divider borderColor="#eaeaea" />
         </Box>
         <Box width={[1, 1 / 5]} mb={3}>
           <QuestionFilter sections={sections} handleFilter={this.handleFilter} />

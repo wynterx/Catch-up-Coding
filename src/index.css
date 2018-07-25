@@ -8,3 +8,11 @@ body {
 .ui.icon.buttons .button {
   margin: 0;
 }
+
+.ui.tabular.menu {
+  background: #2185d0;
+}
+
+.ui.tabular.menu .item {
+  color: white;
+}

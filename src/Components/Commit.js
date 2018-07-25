@@ -10,7 +10,7 @@ class Commit extends Component {
     console.log(this.props);
     const { commits } = this.props;
     return (
-      <Flex flexDirection="column" m="5%" justifyContent="center" wrap>
+      <Flex flexDirection="column" my="2%" mx="5%" justifyContent="center" wrap>
         <Flex mb={4}>
           <Box width={1 / 9}>
             <h2>Section</h2>
