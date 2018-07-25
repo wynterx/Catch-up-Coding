@@ -28,7 +28,7 @@ export default class Header extends Component {
   render() {
     const { list, isLogin, user } = this.props;
     const { activeItem, redirect } = this.state;
-    console.log('thisprops', this.props);
+
     if (redirect) {
       return <Redirect to="/" />;
     }

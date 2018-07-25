@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Feed, Icon, Divider, Button } from 'semantic-ui-react';
+import { Feed, Icon, Button } from 'semantic-ui-react';
 import { Flex, Box, Input } from 'rebass';
 import styled from 'styled-components';
 
@@ -55,7 +55,7 @@ class FeedItem extends Component {
     const { user, question, section, likes, answers, sections } = this.props;
     const { expand } = this.state;
     return (
-      <Feed.Event>
+      <Feed.Event style={{ borderBottom: '1px solid #eaeaea', marginBottom: '24px' }}>
         <Icon size="huge" name="user circle outline" />
         <Feed.Content>
           <Feed.Summary>
@@ -89,7 +89,7 @@ class FeedItem extends Component {
               ))}
             </Feed>
           )}
-          <Divider />
+          <Box m={4} />
         </Feed.Content>
       </Feed.Event>
     );
