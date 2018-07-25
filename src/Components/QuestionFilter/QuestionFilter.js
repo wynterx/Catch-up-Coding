@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
-import { Button, Form, Radio, Select, TextArea, Icon } from 'semantic-ui-react';
-import { Flex, Box, Image, Circle, Input, Border, Checkbox, Label } from 'rebass';
+import { Button, Form, Select } from 'semantic-ui-react';
+import { Flex, Box } from 'rebass';
 import PropTypes from 'prop-types';
 import Text from '../Text/Text';
 
 class QuestionFilter extends Component {
-  static PropTypes = {
+  static propTypes = {
     handleFilter: PropTypes.func,
-    sections: PropTypes.shape({
-      key: PropTypes.string,
-      text: PropTypes.string,
-      value: PropTypes.number,
-    }),
+    sections: PropTypes.arrayOf(
+      PropTypes.shape({
+        key: PropTypes.string,
+        text: PropTypes.string,
+        value: PropTypes.number,
+      })
+    ),
     keyword: PropTypes.string,
   };
 
@@ -31,7 +33,7 @@ class QuestionFilter extends Component {
     }
   };
   render() {
-    const { postByUser, section, keyword } = this.state;
+    const { section, keyword } = this.state;
     const { sections, handleFilter } = this.props;
     return (
       <Flex mx={2} p={2} justifyContent="center" alignItems="center" flexWrap="wrap">
@@ -63,6 +65,7 @@ class QuestionFilter extends Component {
           </Box>
           <Box width={1} p={2}>
             <Form.Field
+              fluid
               control={Select}
               label="Section"
               name="section"
@@ -73,12 +76,7 @@ class QuestionFilter extends Component {
             />
           </Box>
           <Box width={1} p={2}>
-            <Form.Checkbox
-              label="Post by me"
-              name="postByUser"
-              onChange={this.handleChange}
-              value={postByUser}
-            />
+            <Form.Checkbox label="Post by me" name="postByUser" onChange={this.handleChange} />
           </Box>
 
           <Box width={1} align="center" p={2}>
