@@ -36,7 +36,7 @@ class QuestionFilter extends Component {
     const { section, keyword } = this.state;
     const { sections, handleFilter } = this.props;
     return (
-      <Flex mx={2} p={2} justifyContent="center" alignItems="center" flexWrap="wrap">
+      <Flex mx={2} justifyContent="center" alignItems="center" flexWrap="wrap">
         <Box width={1} align="center" p={2}>
           <Text fontSize="24px" fontWeight="800">
             Filter
