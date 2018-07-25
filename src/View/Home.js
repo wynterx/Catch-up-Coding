@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Button, Form } from 'semantic-ui-react';
-import { Redirect } from 'react-router-dom';
 import { Flex, Box, BackgroundImage } from 'rebass';
 
 import Text from '../Components/Text/Text';

@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { Router, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 
 import Header from './Components/Header';
 import Code from './View/Code';
@@ -13,7 +13,7 @@ export default class Main extends Component {
     return (
       <Fragment>
         <Header isLogin user={this.state.user} />
-        <Route path="/main/qa" component={QuestionFeed} user={this.state.user} />
+        <Route path="/main/qa" component={() => <QuestionFeed user={this.state.user} />} />
         <Route path="/main/code" component={Code} />
       </Fragment>
     );

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Feed } from 'semantic-ui-react';
-import { Flex, Box, Image, Border } from 'rebass';
+import { Flex, Box, Divider } from 'rebass';
 
 import PropTypes from 'prop-types';
 import QuestionForm from '../Components/QuestionForm';
@@ -17,7 +17,7 @@ const filterData = (items, filter, user) => {
   return filterItem;
 };
 class QuestionFeed extends Component {
-  static PropTypes = {
+  static propTypes = {
     user: PropTypes.string,
     imgSrc: PropTypes.string,
   };
@@ -84,8 +84,8 @@ class QuestionFeed extends Component {
             sections={sections}
             handleFormSubmit={this.handleFormSubmit}
           />
+          <Divider />
         </Box>
-
         <Box width={[1, 1 / 5]} mb={3}>
           <QuestionFilter sections={sections} handleFilter={this.handleFilter} />
         </Box>
@@ -94,6 +94,7 @@ class QuestionFeed extends Component {
             {questionArray.map(e => {
               return (
                 <FeedItem
+                  displayName={user}
                   sections={sections}
                   firebase={this.firebaseRef}
                   answers={e.answers}
