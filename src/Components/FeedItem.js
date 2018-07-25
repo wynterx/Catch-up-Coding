@@ -23,7 +23,8 @@ class FeedItem extends Component {
   handleAnswer = () => {
     //get user name
     console.log(this.props);
-    const countAnswer = Object.keys(this.props.answers).length;
+
+    const countAnswer = this.props.answers ? Object.keys(this.props.answers).length : 0;
     const questionIndex = this.props.id - 1;
     console.log(countAnswer, questionIndex, 'ssdsfs');
 
