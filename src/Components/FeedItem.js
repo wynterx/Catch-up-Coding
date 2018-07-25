@@ -36,6 +36,12 @@ class FeedItem extends Component {
     this.setState({ text: '' });
   };
 
+  handleKeyEvent = e => {
+    if (e.key == 'Enter') {
+      this.handleAnswer();
+    }
+  };
+
   handleTextAnswer = e => {
     this.setState({ text: e.target.value });
   };
@@ -93,6 +99,7 @@ class FeedItem extends Component {
               placeholder="Answer here !"
               onChange={this.handleTextAnswer}
               value={this.state.text}
+              onKeyUp={this.handleKeyEvent}
             />
             <Button type="submit" icon="send" onClick={this.handleAnswer} />
           </GrayFlex>

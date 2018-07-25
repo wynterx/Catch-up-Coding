@@ -16,3 +16,7 @@ body {
 .ui.tabular.menu .item {
   color: white;
 }
+
+.ui.tabular.menu .active.item {
+  color: #2185d0;
+}
