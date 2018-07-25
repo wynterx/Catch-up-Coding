@@ -10,7 +10,7 @@ const GrayFlex = styled(Flex)`
 `;
 class FeedItem extends Component {
   render() {
-    const { user, question, section, likes, answers } = this.props;
+    const { user, question, section, likes, answers, sections } = this.props;
     return (
       <Feed.Event>
         <Icon size="huge" name="user circle outline" />
