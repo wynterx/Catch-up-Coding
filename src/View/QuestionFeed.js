@@ -7,6 +7,7 @@ import QuestionForm from '../Components/QuestionForm';
 import QuestionFilter from '../Components/QuestionFilter';
 import FeedItem from '../Components/FeedItem';
 import firebase from '../Components/firebase';
+import imgSrc from '../Components/ImageMock';
 
 const filterData = (items, filter, user) => {
   let filterItem = items;
@@ -23,8 +24,7 @@ class QuestionFeed extends Component {
   };
   static defaultProps = {
     user: 'anonymous',
-    imgSrc:
-      'https://s-media-cache-ak0.pinimg.com/originals/4a/33/0f/4a330f8fabfda8fd3009543e816951b1.gif',
+    imgSrc: '',
   };
   state = {
     questions: [],

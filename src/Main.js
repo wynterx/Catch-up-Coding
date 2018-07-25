@@ -13,7 +13,7 @@ export default class Main extends Component {
     return (
       <Fragment>
         <Header isLogin user={this.state.user} />
-        <Route path="/main/qa" component={() => <QuestionFeed user={this.state.user} />} />
+        <Route path="/main/qa" component={QuestionFeed} user={this.state.user} />
         <Route path="/main/code" component={Code} />
       </Fragment>
     );
