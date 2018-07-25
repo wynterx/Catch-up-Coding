@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Feed, Icon, Divider, Button } from 'semantic-ui-react';
+import { Feed, Icon, Button } from 'semantic-ui-react';
 import { Flex, Box, Input } from 'rebass';
 import styled from 'styled-components';
 
@@ -55,7 +55,7 @@ class FeedItem extends Component {
     const { user, question, section, likes, answers, sections } = this.props;
     const { expand } = this.state;
     return (
-      <Feed.Event>
+      <Feed.Event style={{ borderBottom: '1px solid #eaeaea', marginBottom: '24px' }}>
         <Icon size="huge" name="user circle outline" />
         <Feed.Content>
           <Feed.Summary>
@@ -63,13 +63,10 @@ class FeedItem extends Component {
               <Text primary>{user}</Text>
             </Feed.User>
             <Feed.Date>{section}</Feed.Date>
-            <Button
-              basic
-              size="mini"
-              floated="right"
-              icon={expand ? 'chevron up' : 'chevron down'}
-              onClick={this.handleExpand}
-            />
+            <Button basic size="mini" floated="right" onClick={this.handleExpand}>
+              <Icon name={expand ? 'chevron up' : 'chevron down'} />
+              {expand ? 'Hide all answers' : 'Show all answers'}
+            </Button>
           </Feed.Summary>
           {question}
           <br />
@@ -97,7 +94,7 @@ class FeedItem extends Component {
               ))}
             </Feed>
           )}
-          <Divider />
+          <Box m={4} />
         </Feed.Content>
       </Feed.Event>
     );

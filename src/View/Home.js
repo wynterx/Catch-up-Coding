@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Form } from 'semantic-ui-react';
+import { Button, Form, Icon } from 'semantic-ui-react';
 import { Flex, Box, BackgroundImage } from 'rebass';
 
 import Text from '../Components/Text/Text';
@@ -56,7 +56,7 @@ class Home extends Component {
                   PASSCODE :
                 </Text>
               </Box>
-              <Box w={2 / 3} mr={2}>
+              <Box w={2 / 3} mr={3}>
                 <Form.Input
                   value={this.state.passcode}
                   placeholder="Passcode"
@@ -70,7 +70,7 @@ class Home extends Component {
                   DISPLAY NAME :
                 </Text>
               </Box>
-              <Box w={2 / 3} mr={2}>
+              <Box w={2 / 3} mr={3}>
                 <Form.Input
                   value={this.state.displayName}
                   placeholder="Display name"
@@ -79,8 +79,13 @@ class Home extends Component {
               </Box>
             </Flex>
             <Flex justifyContent="flex-end" mt={2}>
-              <Button size="big" primary type="submit">
-                <Text>START LEARNING !</Text>
+              <Button animated type="submit" size="big" primary>
+                <Button.Content visible>
+                  <Text color="white">START LEARNING !!</Text>
+                </Button.Content>
+                <Button.Content hidden>
+                  <Icon name="arrow right" />
+                </Button.Content>
               </Button>
             </Flex>
           </Form>
