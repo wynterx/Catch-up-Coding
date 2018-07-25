@@ -36,6 +36,7 @@ class QuestionForm extends Component {
     this.setState({ question: '', section: '' });
     handleFormSubmit(copyState);
   };
+
   render() {
     const { question, section } = this.state;
     const { imgSrc, sections } = this.props;
@@ -45,7 +46,7 @@ class QuestionForm extends Component {
           <Image src={imgSrc} />
         </Circle>
         <Box width={[1, 1 / 2]}>
-          <Form>
+          <Form onSubmit={this.handleSubmit}>
             <Box width={1} p={2}>
               <Form.Field
                 control={TextArea}
@@ -68,7 +69,7 @@ class QuestionForm extends Component {
                 />
               </Box>
               <Box width={[1 / 3]} align="right" p={2}>
-                <Form.Field primary control={Button} onClick={this.handleSubmit}>
+                <Form.Field primary control={Button} type="submit">
                   Submit
                 </Form.Field>
               </Box>
