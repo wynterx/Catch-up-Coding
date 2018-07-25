@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Button, Checkbox, Form, Radio, Select, TextArea } from 'semantic-ui-react';
-import { Flex, Box, Image, Circle, Input } from 'rebass';
+import { Button, Form, Radio, Select, TextArea, Icon } from 'semantic-ui-react';
+import { Flex, Box, Image, Circle, Input, Border, Checkbox, Label } from 'rebass';
 import PropTypes from 'prop-types';
 import Text from '../Text/Text';
 
@@ -10,55 +10,70 @@ class QuestionFilter extends Component {
     sections: PropTypes.shape({
       key: PropTypes.string,
       text: PropTypes.string,
-      value: PropTypes.string,
+      value: PropTypes.number,
     }),
+    keyword: PropTypes.string,
   };
 
   static defaultProps = {
     handleFilter: () => {},
     sections: [],
+    keyword: '',
   };
 
-  state = { postByUser: false, section: '', sortBy: 'Likes' };
+  state = { postByUser: false, section: '', keyword: '' };
 
-  handleChange = (e, { name, value }) => {
-    console.log(name, value);
-    this.setState({ [name]: value });
-  };
-
-  handleSubmit = () => {
-    const { handleFilter } = this.props;
-    const copyState = this.state;
-    this.setState({ postByUser: false, section: '', sortBy: 'Likes' });
-    handleFilter(copyState);
+  handleChange = (e, { name, value, type }) => {
+    if (name === 'postByUser') this.setState({ [name]: !value });
+    else this.setState({ [name]: value });
   };
   render() {
     const { postByUser, section, sortBy } = this.state;
-    const { sections } = this.props;
+    const { sections, handleFilter } = this.props;
+    console.log(sections);
     return (
-      <Flex
-        m={2}
-        p={4}
-        justifyContent="center"
-        alignItems="flex-start"
-        flexWrap="wrap"
-        flexDirection="column"
-        bg="pink"
-      >
-        <Text>Filter</Text>
+      <Flex mx={2} p={2} justifyContent="center" alignItems="center" flexWrap="wrap">
+        <Box width={1} align="center" p={2}>
+          <Text fontSize="24px" fontWeight="800">
+            Filter
+          </Text>
+        </Box>
         <Form>
-          <Form.Field
-            control={Select}
-            name="section"
-            options={sections}
-            placeholder="Section"
-            value={section}
-            onChange={this.handleChange}
-          />
+          <Box width={1} p={2}>
+            <Form.Input
+              label="keyword"
+              name="keyword"
+              placeholder="Keyword"
+              onChange={this.handleChange}
+            />
+          </Box>
+          <Box width={1} p={2}>
+            <Form.Field
+              control={Select}
+              name="section"
+              options={sections}
+              placeholder="Section"
+              value={section}
+              onChange={this.handleChange}
+            />
+          </Box>
+          <Box width={1} p={2}>
+            <Form.Checkbox
+              label="Post by me"
+              name="postByUser"
+              onChange={this.handleChange}
+              value={postByUser}
+            />
+          </Box>
 
-          <Form.Field primary control={Button} onClick={this.handleSubmit}>
-            Submit
-          </Form.Field>
+          <Box width={1} align="center" p={2}>
+            <Button
+              content="Filter"
+              icon="search"
+              labelPosition="right"
+              onClick={() => handleFilter(this.state)}
+            />
+          </Box>
         </Form>
       </Flex>
     );

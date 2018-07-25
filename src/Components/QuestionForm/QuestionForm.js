@@ -10,7 +10,7 @@ class QuestionForm extends Component {
     sections: PropTypes.shape({
       key: PropTypes.string,
       text: PropTypes.string,
-      value: PropTypes.string,
+      value: PropTypes.number,
     }),
   };
 

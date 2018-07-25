@@ -1,11 +1,19 @@
 import React, { Component } from 'react';
 import { Feed } from 'semantic-ui-react';
-import { Flex, Box } from 'rebass';
+import { Flex, Box, Image, Border } from 'rebass';
+
 import PropTypes from 'prop-types';
 import QuestionForm from '../Components/QuestionForm';
 import QuestionFilter from '../Components/QuestionFilter';
 import FeedItem from '../Components/FeedItem';
 
+const filterData = (items, filter, user) => {
+  let filterItem = items;
+  console.log(filter);
+  if (filter.section) filterItem = filterItem.filter(item => filter.section === item.section);
+  if (filter.postByUser) filterItem = filterItem.filter(item => user === item.user);
+  return filterItem;
+};
 class QuestionFeed extends Component {
   static PropTypes = {
     user: PropTypes.string,
@@ -22,16 +30,33 @@ class QuestionFeed extends Component {
         imgSrc: '',
         user: 'Roy',
         question: 'when is dinner ?',
-        section: 1,
+        section: 'section 1',
+        likes: 200,
+        answers: [{ user: 'Ching', answer: 'now' }],
+      },
+      {
+        imgSrc: '',
+        user: 'Roy',
+        question: 'when is dinner ?',
+        section: 'section 2',
+        likes: 200,
+        answers: [{ user: 'Ching', answer: 'now' }],
+      },
+      {
+        imgSrc: '',
+        user: 'Roy',
+        question: 'when is dinner ?',
+        section: 'section 3',
         likes: 200,
         answers: [{ user: 'Ching', answer: 'now' }],
       },
     ],
     filter: {},
     sections: [
-      { key: '1', text: 'section 1', value: '1' },
-      { key: '2', text: 'section 2', value: '2' },
-      { key: '3', text: 'section 3', value: '3' },
+      { key: 'all', text: 'All sections', value: '' },
+      { key: '1', text: 'section 1', value: 'section 1' },
+      { key: '2', text: 'section 2', value: 'section 2' },
+      { key: '3', text: 'section 3', value: 'section 3' },
     ],
   };
 
@@ -50,11 +75,18 @@ class QuestionFeed extends Component {
     });
     console.log(this.state.questions);
   };
+
+  handleFilter = newFilter => {
+    this.setState({
+      filter: newFilter,
+    });
+  };
   render() {
     const { user, imgSrc } = this.props;
     const { questions, filter, sections } = this.state;
+    const feedItem = filterData(questions, filter, user);
     return (
-      <Flex flexWrap="wrap" m={3}>
+      <Flex flexWrap="wrap" m={3} justifyContent="center">
         <Box width={1}>
           <QuestionForm
             imgSrc={imgSrc}
@@ -63,21 +95,11 @@ class QuestionFeed extends Component {
           />
         </Box>
 
-        <Box width={1 / 4}>
-          <QuestionFilter />
+        <Box width={[1, 1 / 5]} mb={3}>
+          <QuestionFilter sections={sections} handleFilter={this.handleFilter} />
         </Box>
-        <Box width={3 / 4}>
-          <Feed>
-            {[1, 2, 2].map(e => (
-              <FeedItem
-                user="ching"
-                question="asdasdasdasjkdhaks"
-                likes={5}
-                section={1}
-                answers={[{ user: 'hh', answer: 'asdas' }, { user: 'gsd', answer: 'asdaasdasds' }]}
-              />
-            ))}
-          </Feed>
+        <Box width={[1, 3 / 5]} pl={3}>
+          <Feed>{feedItem.map(e => <FeedItem {...e} />)}</Feed>
         </Box>
       </Flex>
     );
