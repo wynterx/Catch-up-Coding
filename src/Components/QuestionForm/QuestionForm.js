@@ -4,14 +4,16 @@ import { Flex, Box, Image, Circle } from 'rebass';
 import PropTypes from 'prop-types';
 
 class QuestionForm extends Component {
-  static PropTypes = {
+  static propTypes = {
     handleFormSubmit: PropTypes.func,
     imgSrc: PropTypes.string,
-    sections: PropTypes.shape({
-      key: PropTypes.string,
-      text: PropTypes.string,
-      value: PropTypes.number,
-    }),
+    sections: PropTypes.arrayOf(
+      PropTypes.shape({
+        key: PropTypes.string,
+        text: PropTypes.string,
+        value: PropTypes.number,
+      })
+    ),
   };
 
   static defaultProps = {

@@ -17,7 +17,7 @@ const filterData = (items, filter, user) => {
   return filterItem;
 };
 class QuestionFeed extends Component {
-  static PropTypes = {
+  static propTypes = {
     user: PropTypes.string,
     imgSrc: PropTypes.string,
   };

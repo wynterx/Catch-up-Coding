@@ -5,13 +5,15 @@ import PropTypes from 'prop-types';
 import Text from '../Text/Text';
 
 class QuestionFilter extends Component {
-  static PropTypes = {
+  static propTypes = {
     handleFilter: PropTypes.func,
-    sections: PropTypes.shape({
-      key: PropTypes.string,
-      text: PropTypes.string,
-      value: PropTypes.number,
-    }),
+    sections: PropTypes.arrayOf(
+      PropTypes.shape({
+        key: PropTypes.string,
+        text: PropTypes.string,
+        value: PropTypes.number,
+      })
+    ),
     keyword: PropTypes.string,
   };
 
