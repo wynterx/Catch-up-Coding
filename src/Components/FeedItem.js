@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 import AnswerItem from './AnswerItem';
 import Text from './Text/Text';
+import firebase from './firebase';
 
 const GrayFlex = styled(Flex)`
   border: 1px solid rgb(224, 225, 226);
@@ -25,17 +26,16 @@ class FeedItem extends Component {
     console.log(this.props);
     const displayName = this.props.displayName;
     const countAnswer = this.props.answers ? Object.keys(this.props.answers).length : 0;
-    const questionIndex = this.props.id - 1;
-    console.log(countAnswer, questionIndex, 'ssdsfs');
-
+    const questionId = this.props.id;
     this.props.firebase
-      .child(questionIndex)
+      .child(questionId)
       .child('answers')
       .child(countAnswer)
       .set({
         user: displayName,
         answer: this.state.text,
       });
+    this.setState({ text: '' });
   };
 
   handleTextAnswer = e => {
@@ -82,12 +82,17 @@ class FeedItem extends Component {
           <Box m={3} />
 
           <GrayFlex alignItems="baseline">
-            <Input type="text" placeholder="Answer here !" onChange={this.handleTextAnswer} />
+            <Input
+              type="text"
+              placeholder="Answer here !"
+              onChange={this.handleTextAnswer}
+              value={this.state.text}
+            />
             <Button type="submit" icon="send" onClick={this.handleAnswer} />
           </GrayFlex>
           {expand && (
             <Feed>
-              {this.state.answers.map(({ user, answer }) => (
+              {this.props.answers.map(({ user, answer }) => (
                 <AnswerItem user={user} answer={answer} />
               ))}
             </Feed>
