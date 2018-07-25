@@ -49,7 +49,7 @@ export default class Header extends Component {
         <Menu.Menu position="right">
           <Menu.Item>
             <Text color="white">
-              <Icon size="small" name="user" color="white" /> {user}
+              <Icon size="small" name="user" /> {user}
             </Text>
           </Menu.Item>
           <Menu.Item name={isLogin ? 'logout' : 'login'} onClick={this.handleLogin} />
