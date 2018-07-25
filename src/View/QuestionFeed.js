@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Feed } from 'semantic-ui-react';
-import { Flex, Box, Image, Border } from 'rebass';
+import { Flex, Box } from 'rebass';
 
 import PropTypes from 'prop-types';
 import QuestionForm from '../Components/QuestionForm';

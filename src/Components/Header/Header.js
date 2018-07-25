@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Link, Redirect } from 'react-router-dom';
 import Text from '../Text/Text';
 export default class Header extends Component {
-  static PropTypes = {
+  static propTypes = {
     list: PropTypes.array,
     isLogin: PropTypes.bool,
   };

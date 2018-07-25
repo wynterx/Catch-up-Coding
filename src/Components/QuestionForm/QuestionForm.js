@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Checkbox, Form, Input, Radio, Select, TextArea } from 'semantic-ui-react';
+import { Button, Form, Select, TextArea } from 'semantic-ui-react';
 import { Flex, Box, Image, Circle } from 'rebass';
 import PropTypes from 'prop-types';
 
@@ -38,7 +38,7 @@ class QuestionForm extends Component {
     const { question, section } = this.state;
     const { imgSrc, sections } = this.props;
     return (
-      <Flex mx={4} justifyContent="center" alignItems="flex-start" flexWrap="wrap">
+      <Flex mb={2} mx={4} justifyContent="center" alignItems="flex-start" flexWrap="wrap">
         <Circle size={128} bg="pink" mx={2} my={2}>
           <Image src={imgSrc} />
         </Circle>
@@ -53,18 +53,23 @@ class QuestionForm extends Component {
                 onChange={this.handleChange}
               />
             </Box>
-            <Flex justifyContent="space-between" p={2}>
-              <Form.Field
-                control={Select}
-                name="section"
-                options={sections}
-                placeholder="Section"
-                value={section}
-                onChange={this.handleChange}
-              />
-              <Form.Field primary control={Button} onClick={this.handleSubmit}>
-                Submit
-              </Form.Field>
+            <Flex justifyContent="space-between" flexWrap="wrap">
+              <Box width={[2 / 3, 1 / 2, 1 / 3]} p={2}>
+                <Form.Field
+                  fluid
+                  control={Select}
+                  name="section"
+                  options={sections}
+                  placeholder="Section"
+                  value={section}
+                  onChange={this.handleChange}
+                />
+              </Box>
+              <Box width={[1 / 3]} align="right" p={2}>
+                <Form.Field primary control={Button} onClick={this.handleSubmit}>
+                  Submit
+                </Form.Field>
+              </Box>
             </Flex>
           </Form>
         </Box>
