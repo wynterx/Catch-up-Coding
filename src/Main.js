@@ -12,8 +12,8 @@ export default class Main extends Component {
 
   componentDidMount() {
     const user = this.props.location.state;
-    if (user.user) {
-      this.setState({ user: user.user });
+    if (user) {
+      this.setState({ user: user.user ? user.user : 'Anonymous' });
     }
   }
   render() {
