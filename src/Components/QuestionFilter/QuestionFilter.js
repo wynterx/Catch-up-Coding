@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Button, Form, Radio, Select, TextArea, Icon } from 'semantic-ui-react';
-import { Flex, Box, Image, Circle, Input, Border, Checkbox, Label } from 'rebass';
+import { Button, Form, Select } from 'semantic-ui-react';
+import { Flex, Box } from 'rebass';
 import PropTypes from 'prop-types';
 import Text from '../Text/Text';
 
@@ -21,14 +21,17 @@ class QuestionFilter extends Component {
     keyword: '',
   };
 
-  state = { postByUser: false, section: '', keyword: '' };
+  state = { postByUser: false, section: 0, keyword: '' };
 
   handleChange = (e, { name, value, type }) => {
-    if (name === 'postByUser') this.setState({ [name]: !value });
-    else this.setState({ [name]: value });
+    if (name === 'postByUser') {
+      this.setState({ [name]: !value });
+    } else {
+      this.setState({ [name]: value });
+    }
   };
   render() {
-    const { postByUser, section, sortBy } = this.state;
+    const { postByUser, section, keyword } = this.state;
     const { sections, handleFilter } = this.props;
     return (
       <Flex mx={2} p={2} justifyContent="center" alignItems="center" flexWrap="wrap">
@@ -40,15 +43,28 @@ class QuestionFilter extends Component {
         <Form>
           <Box width={1} p={2}>
             <Form.Input
-              label="keyword"
+              label="Keyword"
               name="keyword"
               placeholder="Keyword"
+              value={keyword}
+              icon={
+                keyword
+                  ? {
+                      name: 'close',
+                      link: true,
+                      onClick: () => {
+                        this.setState({ keyword: '' });
+                      },
+                    }
+                  : {}
+              }
               onChange={this.handleChange}
             />
           </Box>
           <Box width={1} p={2}>
             <Form.Field
               control={Select}
+              label="Section"
               name="section"
               options={sections}
               placeholder="Section"

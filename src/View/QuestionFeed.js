@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Feed } from 'semantic-ui-react';
-import { Flex, Box, Image, Border } from 'rebass';
+import { Flex, Box } from 'rebass';
 
 import PropTypes from 'prop-types';
 import QuestionForm from '../Components/QuestionForm';
@@ -12,6 +12,8 @@ const filterData = (items, filter, user) => {
   let filterItem = items;
   if (filter.section) filterItem = filterItem.filter(item => filter.section === item.section);
   if (filter.postByUser) filterItem = filterItem.filter(item => user === item.user);
+  if (filter.keyword)
+    filterItem = filterItem.filter(item => item.question.indexOf(filter.keyword) >= 0);
   return filterItem;
 };
 class QuestionFeed extends Component {
@@ -28,10 +30,10 @@ class QuestionFeed extends Component {
     questions: [],
     filter: {},
     sections: [
-      { key: 'all', text: 'All sections', value: '' },
-      { key: '1', text: 'section 1', value: 'section 1' },
-      { key: '2', text: 'section 2', value: 'section 2' },
-      { key: '3', text: 'section 3', value: 'section 3' },
+      { key: 'all', text: 'All sections', value: 0 },
+      { key: '1', text: 'section 1', value: 1 },
+      { key: '2', text: 'section 2', value: 2 },
+      { key: '3', text: 'section 3', value: 3 },
     ],
   };
 
@@ -77,7 +79,7 @@ class QuestionFeed extends Component {
 
     return (
       <Flex flexWrap="wrap" m={3} justifyContent="center">
-        <Box width={1}>
+        <Box width={1} mb={4}>
           <QuestionForm
             imgSrc={imgSrc}
             sections={sections}
