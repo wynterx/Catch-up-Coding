@@ -21,14 +21,17 @@ class QuestionFilter extends Component {
     keyword: '',
   };
 
-  state = { postByUser: false, section: '', keyword: '' };
+  state = { postByUser: false, section: 0, keyword: '' };
 
   handleChange = (e, { name, value, type }) => {
-    if (name === 'postByUser') this.setState({ [name]: !value });
-    else this.setState({ [name]: value });
+    if (name === 'postByUser') {
+      this.setState({ [name]: !value });
+    } else {
+      this.setState({ [name]: value });
+    }
   };
   render() {
-    const { postByUser, section, sortBy } = this.state;
+    const { postByUser, section, keyword } = this.state;
     const { sections, handleFilter } = this.props;
     console.log(sections);
     return (
@@ -41,15 +44,28 @@ class QuestionFilter extends Component {
         <Form>
           <Box width={1} p={2}>
             <Form.Input
-              label="keyword"
+              label="Keyword"
               name="keyword"
               placeholder="Keyword"
+              value={keyword}
+              icon={
+                keyword
+                  ? {
+                      name: 'close',
+                      link: true,
+                      onClick: () => {
+                        this.setState({ keyword: '' });
+                      },
+                    }
+                  : {}
+              }
               onChange={this.handleChange}
             />
           </Box>
           <Box width={1} p={2}>
             <Form.Field
               control={Select}
+              label="Section"
               name="section"
               options={sections}
               placeholder="Section"
