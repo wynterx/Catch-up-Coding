@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Menu } from 'semantic-ui-react';
+import { Menu, Icon } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { Link, Redirect } from 'react-router-dom';
+import Text from '../Text/Text';
 export default class Header extends Component {
   static PropTypes = {
     list: PropTypes.array,
@@ -25,8 +26,9 @@ export default class Header extends Component {
   };
 
   render() {
-    const { list, isLogin } = this.props;
+    const { list, isLogin, user } = this.props;
     const { activeItem, redirect } = this.state;
+    console.log('thisprops', this.props);
     if (redirect) {
       return <Redirect to="/" />;
     }
@@ -45,6 +47,9 @@ export default class Header extends Component {
           );
         })}
         <Menu.Menu position="right">
+          <Menu.Item>
+            <Icon name="user" /> <Text>{user}</Text>
+          </Menu.Item>
           <Menu.Item name={isLogin ? 'logout' : 'login'} onClick={this.handleLogin} />
         </Menu.Menu>
       </Menu>
