@@ -22,8 +22,6 @@ class FeedItem extends Component {
   };
 
   handleAnswer = () => {
-    //get user name
-    console.log(this.props);
     const displayName = this.props.displayName;
     const countAnswer = this.props.answers ? Object.keys(this.props.answers).length : 0;
     const questionId = this.props.id;
@@ -51,6 +49,11 @@ class FeedItem extends Component {
     this.setState({ expand: !this.state.expand });
   };
 
+  handleDeleteQuestion = () => {
+    const questionId = this.props.id;
+    this.props.firebase.child(questionId).remove();
+  };
+
   render() {
     const { user, question, section, likes, answers, sections } = this.props;
     const { expand } = this.state;
@@ -66,6 +69,10 @@ class FeedItem extends Component {
             <Button basic size="mini" floated="right" onClick={this.handleExpand}>
               <Icon name={expand ? 'chevron up' : 'chevron down'} />
               {expand ? 'Hide all answers' : 'Show all answers'}
+            </Button>
+            <Button basic size="mini" floated="right" onClick={this.handleDeleteQuestion}>
+              <Icon name="trash" />
+              Delete question
             </Button>
           </Feed.Summary>
           {question}
