@@ -50,7 +50,7 @@ class QuestionForm extends Component {
               <Form.Field
                 control={TextArea}
                 name="question"
-                placeholder="Tell us more about you..."
+                placeholder="Ask me your question..."
                 value={question}
                 onChange={this.handleChange}
               />

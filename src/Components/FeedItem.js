@@ -60,7 +60,7 @@ class FeedItem extends Component {
         <Feed.Content>
           <Feed.Summary>
             <Feed.User>
-              <Text color="blue">{user}</Text>
+              <Text primary>{user}</Text>
             </Feed.User>
             <Feed.Date>{section}</Feed.Date>
             <Button

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Feed } from 'semantic-ui-react';
-import { Flex, Box } from 'rebass';
+import { Flex, Box, Divider } from 'rebass';
 
 import PropTypes from 'prop-types';
 import QuestionForm from '../Components/QuestionForm';
@@ -79,14 +79,14 @@ class QuestionFeed extends Component {
     const filteredFeedItem = filterData(questions, filter, user);
     return (
       <Flex flexWrap="wrap" m={3} justifyContent="center">
-        <Box width={1} mb={4}>
+        <Box width={1}>
           <QuestionForm
             imgSrc={imgSrc}
             sections={sections}
             handleFormSubmit={this.handleFormSubmit}
           />
+          <Divider />
         </Box>
-
         <Box width={[1, 1 / 5]} mb={3}>
           <QuestionFilter sections={sections} handleFilter={this.handleFilter} />
         </Box>

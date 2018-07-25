@@ -48,7 +48,7 @@ export default class Header extends Component {
         })}
         <Menu.Menu position="right">
           <Menu.Item>
-            <Icon name="user" color="blue" /> <Text color="blue">{user}</Text>
+            <Icon name="user" color="blue" /> <Text primary>{user}</Text>
           </Menu.Item>
           <Menu.Item name={isLogin ? 'logout' : 'login'} onClick={this.handleLogin} />
         </Menu.Menu>
