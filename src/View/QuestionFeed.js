@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import QuestionForm from '../Components/QuestionForm';
 
 import FeedItem from '../Components/FeedItem';
+import firebase from '../Components/firebase';
 
 const sectionOptions = [
   { key: '1', text: 'section 1', value: '1' },
@@ -23,32 +24,47 @@ class QuestionFeed extends Component {
       'https://s-media-cache-ak0.pinimg.com/originals/4a/33/0f/4a330f8fabfda8fd3009543e816951b1.gif',
   };
   state = {
-    questions: [
-      {
-        imgSrc: '',
-        user: 'Roy',
-        question: 'when is dinner ?',
-        section: 1,
-        likes: 200,
-        answers: [{ user: 'Ching', answer: 'now' }],
-      },
-    ],
+    questions: [],
     filter: {},
     section: [],
   };
 
+  componentDidMount() {
+    this.firebaseRef = firebase.database().ref('/post');
+    this.firebaseCallback = this.firebaseRef.on('value', snap => {
+      const questions = snap.val();
+
+      this.setState({ questions });
+    });
+  }
+
+  componentWillUnmount() {
+    this.firebaseRef.off('value', this.firebaseCallback);
+  }
+
   handleFormSubmit = newItem => {
     const { user, imgSrc } = this.props;
-    const copyQuestions = this.state.questions;
-    copyQuestions.push({
+    // const copyQuestions = this.state.questions;
+    // copyQuestions.push({
+    //   ...newItem,
+    //   imgSrc,
+    //   user,
+    //   likes: 0,
+    //   answers: [],
+    // });
+    // this.setState({
+    //   questions: copyQuestions,
+    // });
+
+    const countQuestion = this.state.questions.length;
+    console.log(countQuestion);
+    this.firebaseRef.child(countQuestion).set({
       ...newItem,
+      id: countQuestion,
       imgSrc,
       user,
       likes: 0,
-      answers: [],
-    });
-    this.setState({
-      questions: copyQuestions,
+      answers: {},
     });
     console.log(this.state.questions);
   };
@@ -59,15 +75,21 @@ class QuestionFeed extends Component {
         <QuestionForm handleFormSubmit={this.handleFormSubmit} />
         <Flex mx={4} justifyContent="center" alignItems="flex-start" w="70%">
           <Feed>
-            {[1, 2, 2].map(e => (
-              <FeedItem
-                user="ching"
-                question="asdasdasdasjkdhaks"
-                likes={5}
-                section={1}
-                answers={[{ user: 'hh', answer: 'asdas' }, { user: 'gsd', answer: 'asdaasdasds' }]}
-              />
-            ))}
+            {this.state.questions.map(item => {
+              const { id, question, likes, answers } = item;
+              return (
+                <FeedItem
+                  key={id}
+                  questionId={id}
+                  user="ching"
+                  question={question}
+                  likes={likes}
+                  section={1}
+                  answers={answers}
+                  firebase={this.firebaseRef}
+                />
+              );
+            })}
           </Feed>
         </Flex>
       </Fragment>

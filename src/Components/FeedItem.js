@@ -9,8 +9,39 @@ const GrayFlex = styled(Flex)`
   border-radius: 6px;
 `;
 class FeedItem extends Component {
+  state = {
+    text: '',
+    answers: [],
+  };
+  handleLike = questionId => {
+    this.props.handleLike(2);
+  };
+
+  handleAnswer = () => {
+    //get user name
+
+    const countAnswer = this.state.answers.length;
+    this.props.firebase
+      .child(this.props.questionId - 1)
+      .child('answers')
+      .child(countAnswer)
+      .set({
+        user: 'userans2',
+        answer: this.state.text,
+      });
+  };
+
+  handleTextAnswer = e => {
+    this.setState({ text: e.target.value });
+  };
+
+  componentDidMount() {
+    const { answers } = this.props;
+    this.setState({ answers: answers || [] });
+  }
   render() {
-    const { user, question, section, likes, answers } = this.props;
+    const { user, question, section, likes } = this.props;
+    console.log(this.state.answers, 'answerr');
     return (
       <Feed.Event>
         <Icon size="huge" name="user circle outline" />
@@ -25,19 +56,19 @@ class FeedItem extends Component {
           <br />
           <Feed.Meta>
             <Feed.Like>
-              <Icon name="like" />
+              <Icon name="like" onClick={this.handleLike} />
               {likes} Likes
             </Feed.Like>
           </Feed.Meta>
           <Box m={3} />
 
           <GrayFlex alignItems="baseline">
-            <Input type="text" placeholder="Answer here !" />
-            <Button type="submit" icon="send" />
+            <Input type="text" placeholder="Answer here !" onChange={this.handleTextAnswer} />
+            <Button type="submit" icon="send" onClick={this.handleAnswer} />
           </GrayFlex>
 
           <Feed>
-            {answers.map(({ user, answer }) => (
+            {this.state.answers.map(({ user, answer }) => (
               <Feed.Event>
                 <Feed.Content>
                   <Feed.User>
