@@ -63,13 +63,10 @@ class FeedItem extends Component {
               <Text primary>{user}</Text>
             </Feed.User>
             <Feed.Date>{section}</Feed.Date>
-            <Button
-              basic
-              size="mini"
-              floated="right"
-              icon={expand ? 'chevron up' : 'chevron down'}
-              onClick={this.handleExpand}
-            />
+            <Button basic size="mini" floated="right" onClick={this.handleExpand}>
+              <Icon name={expand ? 'chevron up' : 'chevron down'} />
+              {expand ? 'Hide all answers' : 'Show all answers'}
+            </Button>
           </Feed.Summary>
           {question}
           <br />
