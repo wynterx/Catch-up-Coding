@@ -26,7 +26,6 @@ class Code extends Component {
       });
   }
   render() {
-    console.log('code');
     return <Commit commits={this.state.commits} />;
   }
 }
