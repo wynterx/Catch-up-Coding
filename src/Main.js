@@ -7,14 +7,21 @@ import QuestionFeed from './View/QuestionFeed';
 
 export default class Main extends Component {
   state = {
-    user: this.props.location.state.user,
+    user: 'Anonymous',
   };
+
+  componentDidMount() {
+    const user = this.props.location.state;
+    if (user.user) {
+      this.setState({ user: user.user });
+    }
+  }
   render() {
     return (
       <Fragment>
         <Header isLogin user={this.state.user} />
         <Route path="/main/qa" component={() => <QuestionFeed user={this.state.user} />} />
-        <Route path="/main/code" component={Code} />
+        <Route path="/main/code" component={() => <Code user={this.state.user} />} />
       </Fragment>
     );
   }
