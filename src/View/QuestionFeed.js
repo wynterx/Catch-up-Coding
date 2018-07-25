@@ -1,18 +1,19 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { Feed } from 'semantic-ui-react';
-import { Flex, Box, Image } from 'rebass';
+import { Flex, Box, Image, Border } from 'rebass';
+
 import PropTypes from 'prop-types';
 import QuestionForm from '../Components/QuestionForm';
-
+import QuestionFilter from '../Components/QuestionFilter';
 import FeedItem from '../Components/FeedItem';
 import firebase from '../Components/firebase';
 
-const sectionOptions = [
-  { key: '1', text: 'section 1', value: '1' },
-  { key: '2', text: 'section 2', value: '2' },
-  { key: '3', text: 'section 3', value: '3' },
-];
-
+const filterData = (items, filter, user) => {
+  let filterItem = items;
+  if (filter.section) filterItem = filterItem.filter(item => filter.section === item.section);
+  if (filter.postByUser) filterItem = filterItem.filter(item => user === item.user);
+  return filterItem;
+};
 class QuestionFeed extends Component {
   static PropTypes = {
     user: PropTypes.string,
@@ -26,15 +27,23 @@ class QuestionFeed extends Component {
   state = {
     questions: [],
     filter: {},
-    section: [],
+    sections: [
+      { key: 'all', text: 'All sections', value: '' },
+      { key: '1', text: 'section 1', value: 'section 1' },
+      { key: '2', text: 'section 2', value: 'section 2' },
+      { key: '3', text: 'section 3', value: 'section 3' },
+    ],
   };
 
   componentDidMount() {
     this.firebaseRef = firebase.database().ref('/post');
+
     this.firebaseCallback = this.firebaseRef.on('value', snap => {
       const questions = snap.val();
-
-      this.setState({ questions });
+      const result = Object.keys(questions).map(function(key) {
+        return questions[key];
+      });
+      this.setState({ questions: result });
     });
   }
 
@@ -44,20 +53,8 @@ class QuestionFeed extends Component {
 
   handleFormSubmit = newItem => {
     const { user, imgSrc } = this.props;
-    // const copyQuestions = this.state.questions;
-    // copyQuestions.push({
-    //   ...newItem,
-    //   imgSrc,
-    //   user,
-    //   likes: 0,
-    //   answers: [],
-    // });
-    // this.setState({
-    //   questions: copyQuestions,
-    // });
 
     const countQuestion = this.state.questions.length;
-    console.log(countQuestion);
     this.firebaseRef.child(countQuestion).set({
       ...newItem,
       id: countQuestion,
@@ -66,33 +63,46 @@ class QuestionFeed extends Component {
       likes: 0,
       answers: {},
     });
-    console.log(this.state.questions);
+  };
+
+  handleFilter = newFilter => {
+    this.setState({
+      filter: newFilter,
+    });
   };
   render() {
-    const { value } = this.state;
+    const { user, imgSrc } = this.props;
+    const { questions, filter, sections } = this.state;
+    const feedItem = filterData(questions, filter, user);
+
     return (
-      <Fragment>
-        <QuestionForm handleFormSubmit={this.handleFormSubmit} />
-        <Flex mx={4} justifyContent="center" alignItems="flex-start" w="70%">
+      <Flex flexWrap="wrap" m={3} justifyContent="center">
+        <Box width={1}>
+          <QuestionForm
+            imgSrc={imgSrc}
+            sections={sections}
+            handleFormSubmit={this.handleFormSubmit}
+          />
+        </Box>
+
+        <Box width={[1, 1 / 5]} mb={3}>
+          <QuestionFilter sections={sections} handleFilter={this.handleFilter} />
+        </Box>
+        <Box width={[1, 3 / 5]} pl={3}>
           <Feed>
-            {this.state.questions.map(item => {
-              const { id, question, likes, answers } = item;
+            {feedItem.map(e => {
               return (
                 <FeedItem
-                  key={id}
-                  questionId={id}
-                  user="ching"
-                  question={question}
-                  likes={likes}
-                  section={1}
-                  answers={answers}
+                  {...e}
+                  questionId={e.id}
+                  answers={e.answers}
                   firebase={this.firebaseRef}
                 />
               );
             })}
           </Feed>
-        </Flex>
-      </Fragment>
+        </Box>
+      </Flex>
     );
   }
 }

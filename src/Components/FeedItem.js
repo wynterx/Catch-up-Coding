@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Feed, Icon, Divider, Button } from 'semantic-ui-react';
 import { Flex, Box, Input } from 'rebass';
 import styled from 'styled-components';
+
+import AnswerItem from './AnswerItem';
 import Text from './Text/Text';
 
 const GrayFlex = styled(Flex)`
@@ -12,6 +14,7 @@ class FeedItem extends Component {
   state = {
     text: '',
     answers: [],
+    expand: false,
   };
   handleLike = questionId => {
     this.props.handleLike(2);
@@ -20,9 +23,11 @@ class FeedItem extends Component {
   handleAnswer = () => {
     //get user name
 
-    const countAnswer = this.state.answers.length;
+    const countAnswer = Object.keys(this.props.answers).length;
+    const questionIndex = this.props.questionId - 1;
+
     this.props.firebase
-      .child(this.props.questionId - 1)
+      .child(questionIndex)
       .child('answers')
       .child(countAnswer)
       .set({
@@ -39,9 +44,17 @@ class FeedItem extends Component {
     const { answers } = this.props;
     this.setState({ answers: answers || [] });
   }
+
+  handleExpand = () => {
+    this.setState({ expand: !this.state.expand });
+  };
+
   render() {
-    const { user, question, section, likes } = this.props;
-    console.log(this.state.answers, 'answerr');
+    const { user, question, section, likes, answers } = this.props;
+    // const result = Object.keys(answers).map(function(key) {
+    //   return answers[key];
+    // });
+    const { expand } = this.state;
     return (
       <Feed.Event>
         <Icon size="huge" name="user circle outline" />
@@ -51,6 +64,13 @@ class FeedItem extends Component {
               <Text>{user}</Text>
             </Feed.User>
             <Feed.Date>Section {section}</Feed.Date>
+            <Button
+              basic
+              size="mini"
+              floated="right"
+              icon={expand ? 'chevron up' : 'chevron down'}
+              onClick={this.handleExpand}
+            />
           </Feed.Summary>
           {question}
           <br />
@@ -66,19 +86,13 @@ class FeedItem extends Component {
             <Input type="text" placeholder="Answer here !" onChange={this.handleTextAnswer} />
             <Button type="submit" icon="send" onClick={this.handleAnswer} />
           </GrayFlex>
-
-          <Feed>
-            {this.state.answers.map(({ user, answer }) => (
-              <Feed.Event>
-                <Feed.Content>
-                  <Feed.User>
-                    <Text>{user}</Text>
-                  </Feed.User>
-                  : {answer}
-                </Feed.Content>
-              </Feed.Event>
-            ))}
-          </Feed>
+          {expand && (
+            <Feed>
+              {this.state.answers.map(({ user, answer }) => (
+                <AnswerItem user={user} answer={answer} />
+              ))}
+            </Feed>
+          )}
           <Divider />
         </Feed.Content>
       </Feed.Event>

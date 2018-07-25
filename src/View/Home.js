@@ -29,7 +29,11 @@ class Home extends Component {
   };
   render() {
     if (this.state.redirect) {
-      return <Redirect to="/main/qa" />;
+      console.log('hereee');
+      this.props.history.push({
+        pathname: '/main/qa/',
+        state: { user: this.state.displayName },
+      });
     }
     return (
       <BgContainer mt="12%" alignItems="center" justifyContent="center">
