@@ -7,7 +7,7 @@ const PText = styled.p`
 
 const Text = styled(PText)`
   font-size: ${({ fontSize = '20px' }) => fontSize};
-  font-size: ${({ fontWeight = '600' }) => fontWeight};
+  font-weight: ${({ fontWeight = '600' }) => fontWeight};
 `;
 
 export default Text;
