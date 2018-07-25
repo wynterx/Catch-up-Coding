@@ -20,7 +20,7 @@ class FeedItem extends Component {
   };
 
   render() {
-    const { user, question, section, likes, answers } = this.props;
+    const { user, question, section, likes, answers, sections } = this.props;
     const { expand } = this.state;
     return (
       <Feed.Event>
