@@ -1,40 +1,56 @@
 import React, { Component } from 'react';
-import { Menu, Image } from 'semantic-ui-react';
+import { Menu, Icon } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+import Text from '../Text/Text';
 export default class Header extends Component {
   static PropTypes = {
     list: PropTypes.array,
-    activeItem: PropTypes.string,
-    handleItemClick: PropTypes.func,
     isLogin: PropTypes.bool,
-    handleLogin: PropTypes.func,
   };
   static defaultProps = {
-    list: [{ title: 'Q&A', to: '/' }, { title: 'code', to: '/code' }],
-    activeItem: 'Q&A',
-    handleItemClick: () => {},
-    isLogin: false,
-    handleLogin: () => {},
+    list: [{ name: 'Q&A', to: '/main/qa' }, { name: 'code', to: '/main/code' }],
+    isLogin: true,
   };
+
+  state = {
+    activeItem: 'Q&A',
+    redirect: false,
+  };
+  handleItemClick = (e, { name }) => {
+    this.setState({ activeItem: name });
+  };
+
+  handleLogin = () => {
+    this.setState({ redirect: true });
+  };
+
   render() {
-    const { list, activeItem, handleItemClick, isLogin, handleLogin } = this.props;
+    const { list, isLogin, user } = this.props;
+    const { activeItem, redirect } = this.state;
+    console.log('thisprops', this.props);
+    if (redirect) {
+      return <Redirect to="/" />;
+    }
     return (
       <Menu tabular>
         {list.map(item => {
           return (
             <Menu.Item
-              //   key={`${menuName + path + index}`}
+              key={item.name}
               as={Link}
               to={item.to}
-              name={item.title}
-              active={activeItem === item.title}
-              onClick={handleItemClick(item.title)}
+              name={item.name}
+              active={activeItem === item.name}
+              onClick={this.handleItemClick}
             />
           );
         })}
         <Menu.Menu position="right">
-          <Menu.Item name={isLogin ? 'logout' : 'login'} onClick={handleLogin} />
+          <Menu.Item>
+            <Icon name="user" /> <Text>{user}</Text>
+          </Menu.Item>
+          <Menu.Item name={isLogin ? 'logout' : 'login'} onClick={this.handleLogin} />
         </Menu.Menu>
       </Menu>
     );

@@ -1,20 +1,21 @@
 import React, { Component, Fragment } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Router, Route } from 'react-router-dom';
 
 import Header from './Components/Header';
 import Code from './View/Code';
-import Home from './Components/Home';
+import QuestionFeed from './View/QuestionFeed';
 
 export default class Main extends Component {
+  state = {
+    user: this.props.location.state.user,
+  };
   render() {
     return (
-      <Router>
-        <Fragment>
-          <Header />
-          <Route exact path="/" component={Home} />
-          <Route path="/code" component={Code} />
-        </Fragment>
-      </Router>
+      <Fragment>
+        <Header isLogin user={this.state.user} />
+        <Route path="/main/qa" component={QuestionFeed} user={this.state.user} />
+        <Route path="/main/code" component={Code} />
+      </Fragment>
     );
   }
 }
