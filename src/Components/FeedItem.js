@@ -12,8 +12,39 @@ const GrayFlex = styled(Flex)`
 `;
 class FeedItem extends Component {
   state = {
+    text: '',
+    answers: [],
     expand: false,
   };
+  handleLike = questionId => {
+    this.props.handleLike(2);
+  };
+
+  handleAnswer = () => {
+    //get user name
+    console.log(this.props);
+    const countAnswer = Object.keys(this.props.answers).length;
+    const questionIndex = this.props.id - 1;
+    console.log(countAnswer, questionIndex, 'ssdsfs');
+
+    this.props.firebase
+      .child(questionIndex)
+      .child('answers')
+      .child(countAnswer)
+      .set({
+        user: 'userans2',
+        answer: this.state.text,
+      });
+  };
+
+  handleTextAnswer = e => {
+    this.setState({ text: e.target.value });
+  };
+
+  componentDidMount() {
+    const { answers } = this.props;
+    this.setState({ answers: answers || [] });
+  }
 
   handleExpand = () => {
     this.setState({ expand: !this.state.expand });
@@ -43,19 +74,21 @@ class FeedItem extends Component {
           <br />
           <Feed.Meta>
             <Feed.Like>
-              <Icon name="like" />
+              <Icon name="like" onClick={this.handleLike} />
               {likes} Likes
             </Feed.Like>
           </Feed.Meta>
           <Box m={3} />
 
           <GrayFlex alignItems="baseline">
-            <Input type="text" placeholder="Answer here !" />
-            <Button type="submit" icon="send" />
+            <Input type="text" placeholder="Answer here !" onChange={this.handleTextAnswer} />
+            <Button type="submit" icon="send" onClick={this.handleAnswer} />
           </GrayFlex>
           {expand && (
             <Feed>
-              {answers.map(({ user, answer }) => <AnswerItem user={user} answer={answer} />)}
+              {this.state.answers.map(({ user, answer }) => (
+                <AnswerItem user={user} answer={answer} />
+              ))}
             </Feed>
           )}
           <Divider />

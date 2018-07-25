@@ -33,7 +33,6 @@ class QuestionFilter extends Component {
   render() {
     const { section, keyword } = this.state;
     const { sections, handleFilter } = this.props;
-    console.log(sections);
     return (
       <Flex mx={2} p={2} justifyContent="center" alignItems="center" flexWrap="wrap">
         <Box width={1} align="center" p={2}>
