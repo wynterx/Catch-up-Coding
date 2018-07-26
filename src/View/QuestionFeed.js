@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Feed } from 'semantic-ui-react';
 import { Flex, Box, Divider } from 'rebass';
+import { Redirect } from 'react-router-dom';
 
 import PropTypes from 'prop-types';
 import QuestionForm from '../Components/QuestionForm';
@@ -74,6 +75,9 @@ class QuestionFeed extends Component {
         })
       : [];
     const filteredFeedItem = filterData(questionArray, filter, user);
+    if (!user) {
+      return <Redirect to="/" />;
+    }
     return (
       <Flex flexWrap="wrap" my="2%" mx="5%" justifyContent="center">
         <Box width={1} mb={3}>

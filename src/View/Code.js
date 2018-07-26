@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Redirect } from 'react-router-dom';
 import Commit from '../Components/Commit';
+
 class Code extends Component {
   state = {
     commits: [],
@@ -26,6 +28,9 @@ class Code extends Component {
       });
   }
   render() {
+    if (!this.props.user) {
+      return <Redirect to="/" />;
+    }
     return <Commit commits={this.state.commits} />;
   }
 }
