@@ -22,7 +22,7 @@ class Home extends Component {
   };
   handleSubmit = () => {
     console.log('onclick', this.state);
-    this.firebaseRef.push({
+    this.firebaseRef.set({
       [this.state.passcode]: this.state.displayName,
     });
     this.setState({ redirect: true });
@@ -45,9 +45,7 @@ class Home extends Component {
     if (this.state.redirect) {
       this.props.history.push({
         pathname: '/main/qa/',
-        state: {
-          user: { passcode: this.state.passcode, displayName: this.state.displayName, imgSrc },
-        },
+        state: { user: this.state.displayName, passcode: this.state.passcode },
       });
     }
     return (
