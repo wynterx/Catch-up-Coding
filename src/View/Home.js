@@ -3,6 +3,7 @@ import { Button, Form, Icon } from 'semantic-ui-react';
 import { Flex, Box, BackgroundImage } from 'rebass';
 
 import Text from '../Components/Text/Text';
+import imgSrc from '../Components/ImageMock';
 import styled from '../../node_modules/styled-components';
 import firebase from '../Components/firebase';
 const BgContainer = styled(Flex)`
@@ -42,10 +43,11 @@ class Home extends Component {
 
   render() {
     if (this.state.redirect) {
-      console.log('hereee');
       this.props.history.push({
         pathname: '/main/qa/',
-        state: { user: this.state.displayName },
+        state: {
+          user: { passcode: this.state.passcode, displayName: this.state.displayName, imgSrc },
+        },
       });
     }
     return (

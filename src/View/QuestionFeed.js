@@ -7,24 +7,23 @@ import QuestionForm from '../Components/QuestionForm';
 import QuestionFilter from '../Components/QuestionFilter';
 import FeedItem from '../Components/FeedItem';
 import firebase from '../Components/firebase';
+import imgSrc from '../Components/ImageMock';
 
 const filterData = (items, filter, user) => {
   let filterItem = items;
   if (filter.section) filterItem = filterItem.filter(item => filter.section === item.section);
-  if (filter.postByUser) filterItem = filterItem.filter(item => user === item.user);
+  // if (filter.postByUser) filterItem = filterItem.filter(item => user.displayName === item.user);
   if (filter.keyword)
     filterItem = filterItem.filter(item => item.question.indexOf(filter.keyword) >= 0);
   return filterItem;
 };
 class QuestionFeed extends Component {
   static propTypes = {
-    user: PropTypes.string,
-    imgSrc: PropTypes.string,
-  };
-  static defaultProps = {
-    user: 'anonymous',
-    imgSrc:
-      'https://s-media-cache-ak0.pinimg.com/originals/4a/33/0f/4a330f8fabfda8fd3009543e816951b1.gif',
+    user: PropTypes.shape({
+      passcode: PropTypes.string,
+      displayName: PropTypes.string,
+      imgSrc: PropTypes.string,
+    }).isRequired,
   };
   state = {
     questions: [],
@@ -51,11 +50,10 @@ class QuestionFeed extends Component {
   }
 
   handleFormSubmit = newItem => {
-    const { user, imgSrc } = this.props;
+    const { user } = this.props;
 
     this.firebaseRef.push({
       ...newItem,
-      imgSrc,
       user,
       likes: 0,
       answers: {},
@@ -68,7 +66,7 @@ class QuestionFeed extends Component {
     });
   };
   render() {
-    const { user, imgSrc } = this.props;
+    const { user } = this.props;
     const { questions, filter, sections } = this.state;
     const questionArray = questions
       ? Object.keys(questions).map(function(key) {
@@ -80,7 +78,7 @@ class QuestionFeed extends Component {
       <Flex flexWrap="wrap" my="2%" mx="5%" justifyContent="center">
         <Box width={1} mb={3}>
           <QuestionForm
-            imgSrc={imgSrc}
+            imgSrc={user.imgSrc}
             sections={sections}
             handleFormSubmit={this.handleFormSubmit}
           />
@@ -93,9 +91,10 @@ class QuestionFeed extends Component {
         <Box width={[1, 3 / 5]} pl={3}>
           <Feed>
             {questionArray.map(e => {
+              console.log(e);
               return (
                 <FeedItem
-                  displayName={user}
+                  // displayName={displayName}
                   sections={sections}
                   firebase={this.firebaseRef}
                   answers={e.answers}

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Feed, Icon, Button } from 'semantic-ui-react';
-import { Flex, Box, Input } from 'rebass';
+import { Flex, Box, Input, Image } from 'rebass';
 import styled from 'styled-components';
 
 import AnswerItem from './AnswerItem';
@@ -65,11 +65,13 @@ class FeedItem extends Component {
     const { expand } = this.state;
     return (
       <Feed.Event style={{ borderBottom: '1px solid #eaeaea', marginBottom: '24px' }}>
-        <Icon size="huge" name="user circle outline" />
+        <Box>
+          <Image src={user.imgSrc} width={50} mx={2} />
+        </Box>
         <Feed.Content>
           <Feed.Summary>
             <Feed.User>
-              <Text primary>{user}</Text>
+              <Text primary>{user.displayName}</Text>
             </Feed.User>
             <Feed.Date>{section}</Feed.Date>
             <Button basic size="mini" floated="right" onClick={this.handleExpand}>
