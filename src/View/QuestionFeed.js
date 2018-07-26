@@ -93,7 +93,7 @@ class QuestionFeed extends Component {
         </Box>
         <Box width={[1, 3 / 5]} pl={3}>
           <Feed>
-            {filteredFeedItem.map(e => {
+            {filteredFeedItem.reverse().map(e => {
               return (
                 <FeedItem
                   sections={sections}
