@@ -6,7 +6,6 @@ import styled from 'styled-components';
 import AnswerItem from './AnswerItem';
 import Text from './Text/Text';
 import ConfirmModal from './ConfirmModal';
-import firebase from './firebase';
 
 const GrayFlex = styled(Flex)`
   border: 1px solid rgb(224, 225, 226);
@@ -56,7 +55,7 @@ class FeedItem extends Component {
   };
 
   handleKeyEvent = e => {
-    if (e.key == 'Enter') {
+    if (e.key === 'Enter') {
       this.handleAnswer();
     }
   };
@@ -88,7 +87,7 @@ class FeedItem extends Component {
     const likeArray = likes
       ? Object.keys(likes).map(key => {
           Object.keys(likes[key]).map(element => {
-            if (element == passcode) {
+            if (element === passcode) {
               liked = true;
             }
           });

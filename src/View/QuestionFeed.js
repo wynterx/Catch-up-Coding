@@ -8,7 +8,6 @@ import QuestionForm from '../Components/QuestionForm';
 import QuestionFilter from '../Components/QuestionFilter';
 import FeedItem from '../Components/FeedItem';
 import firebase from '../Components/firebase';
-import imgSrc from '../Components/ImageMock';
 
 const filterData = (items, filter, user) => {
   let filterItem = items;
@@ -26,12 +25,13 @@ class QuestionFeed extends Component {
       imgSrc: PropTypes.string,
     }).isRequired,
   };
+
   state = {
     hideText: false,
     questions: [],
     filter: {},
     sections: [
-      { key: 'all', text: 'All sections', value: 0 },
+      { key: 'all', text: 'General', value: 0 },
       { key: '1', text: 'section 1', value: 1 },
       { key: '2', text: 'section 2', value: 2 },
       { key: '3', text: 'section 3', value: 3 },
@@ -73,7 +73,7 @@ class QuestionFeed extends Component {
   };
   render() {
     const { user } = this.props;
-
+    console.log('here', user);
     const { questions, filter, sections, hideText } = this.state;
     const questionArray = questions
       ? Object.keys(questions).map(function(key) {

@@ -10,7 +10,7 @@ class Commit extends Component {
     console.log(this.props);
     const { commits } = this.props;
     return (
-      <Flex flexDirection="column" my="2%" mx="5%" justifyContent="center" wrap>
+      <Flex flexDirection="column" my="2%" mx="5%" justifyContent="center" flexWrap="wrap">
         <Flex mb={4}>
           <Box width={[1 / 3, 1 / 9]}>
             <h2>Section</h2>
@@ -21,7 +21,7 @@ class Commit extends Component {
         </Flex>
         {commits.map((commit, index) => {
           return (
-            <Flex mb={3} ml={3}>
+            <Flex mb={3} ml={3} key={index}>
               <Box
                 width={[1 / 3, 2 / 25]}
                 is="a"
