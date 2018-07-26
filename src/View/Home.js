@@ -4,7 +4,7 @@ import { Flex, Box, BackgroundImage } from 'rebass';
 
 import Text from '../Components/Text/Text';
 import styled from '../../node_modules/styled-components';
-
+import firebase from '../Components/firebase';
 const BgContainer = styled(Flex)`
   min-height: 100%;
 `;
@@ -21,11 +21,25 @@ class Home extends Component {
   };
   handleSubmit = () => {
     console.log('onclick', this.state);
-    if (this.state.passcode === 'ching') {
-      console.log('SUCCESS');
-      this.setState({ redirect: true });
-    }
+    this.firebaseRef.push({
+      [this.state.passcode]: this.state.displayName,
+    });
+    this.setState({ redirect: true });
   };
+
+  componentDidMount() {
+    this.firebaseRef = firebase.database().ref('/users');
+
+    this.firebaseCallback = this.firebaseRef.on('value', snap => {
+      const questions = snap.val();
+      this.setState({ questions: questions });
+    });
+  }
+
+  componentWillUnmount() {
+    this.firebaseRef.off('value', this.firebaseCallback);
+  }
+
   render() {
     if (this.state.redirect) {
       console.log('hereee');
