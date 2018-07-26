@@ -69,7 +69,7 @@ class FeedItem extends Component {
   };
 
   render() {
-    const { user, question, section, likes, answers, sections, passcode } = this.props;
+    const { user, question, section, likes, answers = [], sections, passcode } = this.props;
     const { expand } = this.state;
     let liked = false;
     const likeArray = likes
@@ -80,7 +80,7 @@ class FeedItem extends Component {
           return key;
         })
       : [];
-
+    console.log(answers);
     return (
       <Feed.Event style={{ borderBottom: '1px solid #eaeaea', marginBottom: '24px' }}>
         <Box>
@@ -131,9 +131,7 @@ class FeedItem extends Component {
           </GrayFlex>
           {expand && (
             <Feed>
-              {this.props.answers.map(({ user, answer }) => (
-                <AnswerItem user={user} answer={answer} />
-              ))}
+              {answers.map(({ user, answer }) => <AnswerItem user={user} answer={answer} />)}
             </Feed>
           )}
           <Box m={4} />
