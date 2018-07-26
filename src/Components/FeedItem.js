@@ -24,8 +24,8 @@ class FeedItem extends Component {
     this.props.firebase
       .child(questionId)
       .child('likes')
-      .push({
-        passcode: this.props.passcode,
+      .set({
+        [this.props.passcode]: 1,
       });
   };
 
@@ -69,11 +69,15 @@ class FeedItem extends Component {
   };
 
   render() {
-    const { user, question, section, likes, answers, sections } = this.props;
+    const { user, question, section, likes, answers, sections, passcode } = this.props;
     const { expand } = this.state;
+    let liked = false;
     const likeArray = likes
       ? Object.keys(likes).map(function(key) {
-          return likes[key];
+          if (key === passcode) {
+            liked = true;
+          }
+          return key;
         })
       : [];
 
@@ -101,10 +105,16 @@ class FeedItem extends Component {
           <br />
           <Feed.Meta>
             <Feed.Like>
-              <Button onClick={this.handleLike}>
-                <Icon name="like" />
-                {likeArray.length} Likes
-              </Button>
+              {liked ? (
+                <Icon name="like" color="red">
+                  {likeArray.length} Likes
+                </Icon>
+              ) : (
+                <Button onClick={this.handleLike}>
+                  <Icon name="like" />
+                  {likeArray.length} Likes
+                </Button>
+              )}
             </Feed.Like>
           </Feed.Meta>
           <Box m={3} />
