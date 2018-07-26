@@ -55,8 +55,6 @@ class QuestionFeed extends Component {
     this.firebaseRef.push({
       ...newItem,
       user,
-      likes: 0,
-      answers: {},
     });
   };
 
@@ -66,7 +64,8 @@ class QuestionFeed extends Component {
     });
   };
   render() {
-    const { user } = this.props;
+    const { user, imgSrc, passcode } = this.props;
+
     const { questions, filter, sections } = this.state;
     const questionArray = questions
       ? Object.keys(questions).map(function(key) {
@@ -98,6 +97,8 @@ class QuestionFeed extends Component {
                   sections={sections}
                   firebase={this.firebaseRef}
                   answers={e.answers}
+                  passcode={passcode}
+                  likes={e.likes}
                   {...e}
                 />
               );
