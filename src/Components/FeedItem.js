@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Feed, Icon, Button } from 'semantic-ui-react';
-import { Flex, Box, Input, Image } from 'rebass';
+import { Flex, Box, Input, Image, Text as RText } from 'rebass';
 import styled from 'styled-components';
 
 import AnswerItem from './AnswerItem';
@@ -99,31 +99,35 @@ class FeedItem extends Component {
     console.log(likes);
     return (
       <Feed.Event style={{ borderBottom: '1px solid #eaeaea', marginBottom: '24px' }}>
-        <Box>
-          <Image src={user.imgSrc} width={50} mx={2} />
+        <Box width={80} pr={2}>
+          <Image src={user.imgSrc} />
         </Box>
-        <Feed.Content>
+        <Feed.Content width={1}>
           <Feed.Summary>
             <Feed.User>
               <Text primary>{user.displayName}</Text>
             </Feed.User>
             <Feed.Date>{sectionText}</Feed.Date>
-            <Button basic size="mini" floated="right" onClick={this.handleExpand}>
+            <Button compact basic size="mini" floated="right" onClick={this.handleExpand}>
               <Icon name={expand ? 'chevron up' : 'chevron down'} />
-              {expand ? 'Hide all answers' : 'Show all answers'}
+              {expand ? 'Hide ans' : 'Show ans'}
             </Button>
-            <Button basic size="mini" floated="right" onClick={() => this.setState({ open: true })}>
-              <Icon name="trash" />
-              Delete question
-            </Button>
+            <Button
+              basic
+              compact
+              size="mini"
+              icon="trash"
+              floated="right"
+              onClick={() => this.setState({ open: true })}
+            />
             <ConfirmModal
               open={this.state.open}
               onClose={this.handleCloseModal}
               onConfirm={this.handleDeleteQuestion}
             />
           </Feed.Summary>
-          {question}
-          <br />
+          <RText p={2} fontWeight="bold" fontSize={18} children={question} fontFamily="Lato" />
+
           <Feed.Meta>
             <Feed.Like>
               {liked ? (
@@ -139,8 +143,7 @@ class FeedItem extends Component {
               )}
             </Feed.Like>
           </Feed.Meta>
-          <Box m={3} />
-
+          <Box m={2} />
           <GrayFlex alignItems="baseline">
             <Input
               type="text"
