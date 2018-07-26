@@ -21,10 +21,11 @@ class FeedItem extends Component {
     const questionId = this.props.id;
     const countLike = this.props.likes ? Object.keys(this.props.likes).length : 0;
     console.log(countLike);
+    console.log(questionId);
     this.props.firebase
       .child(questionId)
       .child('likes')
-      .set({
+      .push({
         [this.props.passcode]: 1,
       });
   };
@@ -73,14 +74,17 @@ class FeedItem extends Component {
     const { expand } = this.state;
     let liked = false;
     const likeArray = likes
-      ? Object.keys(likes).map(function(key) {
-          if (key === passcode) {
-            liked = true;
-          }
-          return key;
+      ? Object.keys(likes).map(key => {
+          Object.keys(likes[key]).map(element => {
+            if (element == passcode) {
+              liked = true;
+            }
+          });
+
+          return likes[key];
         })
       : [];
-    console.log(answers);
+    console.log(likes);
     return (
       <Feed.Event style={{ borderBottom: '1px solid #eaeaea', marginBottom: '24px' }}>
         <Box>
