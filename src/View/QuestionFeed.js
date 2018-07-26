@@ -65,7 +65,7 @@ class QuestionFeed extends Component {
     });
   };
   render() {
-    const { user, imgSrc, passcode } = this.props;
+    const { user } = this.props;
 
     const { questions, filter, sections } = this.state;
     const questionArray = questions
@@ -99,7 +99,7 @@ class QuestionFeed extends Component {
                   sections={sections}
                   firebase={this.firebaseRef}
                   answers={e.answers}
-                  passcode={passcode}
+                  passcode={user.passcode}
                   likes={e.likes}
                   {...e}
                 />
