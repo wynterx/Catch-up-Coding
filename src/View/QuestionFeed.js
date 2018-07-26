@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Feed } from 'semantic-ui-react';
 import { Flex, Box, Divider } from 'rebass';
+import { Redirect } from 'react-router-dom';
 
 import PropTypes from 'prop-types';
 import QuestionForm from '../Components/QuestionForm';
@@ -55,8 +56,6 @@ class QuestionFeed extends Component {
     this.firebaseRef.push({
       ...newItem,
       user,
-      likes: 0,
-      answers: {},
     });
   };
 
@@ -66,7 +65,8 @@ class QuestionFeed extends Component {
     });
   };
   render() {
-    const { user } = this.props;
+    const { user, imgSrc, passcode } = this.props;
+
     const { questions, filter, sections } = this.state;
     const questionArray = questions
       ? Object.keys(questions).map(function(key) {
@@ -74,7 +74,9 @@ class QuestionFeed extends Component {
         })
       : [];
     const filteredFeedItem = filterData(questionArray, filter, user);
-
+    if (!user) {
+      return <Redirect to="/" />;
+    }
     return (
       <Flex flexWrap="wrap" my="2%" mx="5%" justifyContent="center">
         <Box width={1} mb={3}>
@@ -97,6 +99,8 @@ class QuestionFeed extends Component {
                   sections={sections}
                   firebase={this.firebaseRef}
                   answers={e.answers}
+                  passcode={passcode}
+                  likes={e.likes}
                   {...e}
                 />
               );

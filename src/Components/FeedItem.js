@@ -27,6 +27,17 @@ class FeedItem extends Component {
   handleLike = questionId => {
     this.props.handleLike(2);
   };
+  handleLike = () => {
+    const questionId = this.props.id;
+    const countLike = this.props.likes ? Object.keys(this.props.likes).length : 0;
+    console.log(countLike);
+    this.props.firebase
+      .child(questionId)
+      .child('likes')
+      .push({
+        passcode: this.props.passcode,
+      });
+  };
 
   handleAnswer = () => {
     const user = this.props.user;
@@ -71,6 +82,12 @@ class FeedItem extends Component {
     const { user, question, section, likes, answers = [] } = this.props;
     const { expand } = this.state;
     const sectionText = section == 0 ? 'General' : `Section ${section}`;
+    const likeArray = likes
+      ? Object.keys(likes).map(function(key) {
+          return likes[key];
+        })
+      : [];
+
     return (
       <Feed.Event style={{ borderBottom: '1px solid #eaeaea', marginBottom: '24px' }}>
         <Box>
@@ -100,8 +117,10 @@ class FeedItem extends Component {
           <br />
           <Feed.Meta>
             <Feed.Like>
-              <Icon name="like" onClick={this.handleLike} />
-              {likes} Likes
+              <Button onClick={this.handleLike}>
+                <Icon name="like" />
+                {likeArray.length} Likes
+              </Button>
             </Feed.Like>
           </Feed.Meta>
           <Box m={3} />
