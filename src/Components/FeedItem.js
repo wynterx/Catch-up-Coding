@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 import AnswerItem from './AnswerItem';
 import Text from './Text/Text';
+import ConfirmModal from './ConfirmModal';
 import firebase from './firebase';
 
 const GrayFlex = styled(Flex)`
@@ -16,6 +17,15 @@ class FeedItem extends Component {
     text: '',
     answers: [],
     expand: false,
+    open: false,
+  };
+
+  handleCloseModal = () => {
+    this.setState({ open: false });
+  };
+
+  handleLike = questionId => {
+    this.props.handleLike(2);
   };
   handleLike = () => {
     const questionId = this.props.id;
@@ -71,6 +81,7 @@ class FeedItem extends Component {
   render() {
     const { user, question, section, likes, answers, sections, passcode } = this.props;
     const { expand } = this.state;
+    const sectionText = section == 0 ? 'General' : `Section ${section}`;
     let liked = false;
     const likeArray = likes
       ? Object.keys(likes).map(function(key) {
@@ -91,15 +102,20 @@ class FeedItem extends Component {
             <Feed.User>
               <Text primary>{user.displayName}</Text>
             </Feed.User>
-            <Feed.Date>{section}</Feed.Date>
+            <Feed.Date>{sectionText}</Feed.Date>
             <Button basic size="mini" floated="right" onClick={this.handleExpand}>
               <Icon name={expand ? 'chevron up' : 'chevron down'} />
               {expand ? 'Hide all answers' : 'Show all answers'}
             </Button>
-            <Button basic size="mini" floated="right" onClick={this.handleDeleteQuestion}>
+            <Button basic size="mini" floated="right" onClick={() => this.setState({ open: true })}>
               <Icon name="trash" />
               Delete question
             </Button>
+            <ConfirmModal
+              open={this.state.open}
+              onClose={this.handleCloseModal}
+              onConfirm={this.handleDeleteQuestion}
+            />
           </Feed.Summary>
           {question}
           <br />
@@ -131,9 +147,7 @@ class FeedItem extends Component {
           </GrayFlex>
           {expand && (
             <Feed>
-              {this.props.answers.map(({ user, answer }) => (
-                <AnswerItem user={user} answer={answer} />
-              ))}
+              {answers.map(({ user, answer }) => <AnswerItem user={user} answer={answer} />)}
             </Feed>
           )}
           <Box m={4} />

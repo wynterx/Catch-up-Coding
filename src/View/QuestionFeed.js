@@ -74,7 +74,7 @@ class QuestionFeed extends Component {
         })
       : [];
     const filteredFeedItem = filterData(questionArray, filter, user);
-    if (!user) {
+    if (user) {
       return <Redirect to="/" />;
     }
     return (
