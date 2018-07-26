@@ -13,7 +13,8 @@ import imgSrc from '../Components/ImageMock';
 const filterData = (items, filter, user) => {
   let filterItem = items;
   if (filter.section) filterItem = filterItem.filter(item => filter.section === item.section);
-  // if (filter.postByUser) filterItem = filterItem.filter(item => user.displayName === item.user);
+  if (filter.postByUser)
+    filterItem = filterItem.filter(item => user.passcode === item.user.passcode);
   if (filter.keyword)
     filterItem = filterItem.filter(item => item.question.indexOf(filter.keyword) >= 0);
   return filterItem;
@@ -91,7 +92,7 @@ class QuestionFeed extends Component {
         <Box width={[1, 1 / 5]} mb={3}>
           <QuestionFilter sections={sections} handleFilter={this.handleFilter} />
         </Box>
-        <Box width={[1, 3 / 5]} pl={3}>
+        <Box width={[1, 3 / 5]}>
           <Feed>
             {filteredFeedItem.map(e => {
               return (
