@@ -29,7 +29,7 @@ class FeedItem extends Component {
   };
 
   handleAnswer = () => {
-    const displayName = this.props.displayName;
+    const user = this.props.user;
     const countAnswer = this.props.answers ? Object.keys(this.props.answers).length : 0;
     const questionId = this.props.id;
     this.props.firebase
@@ -37,7 +37,7 @@ class FeedItem extends Component {
       .child('answers')
       .child(countAnswer)
       .set({
-        user: displayName,
+        user,
         answer: this.state.text,
       });
     this.setState({ text: '' });
