@@ -7,7 +7,6 @@ class Commit extends Component {
   };
 
   render() {
-    console.log(this.props);
     const { commits } = this.props;
     return (
       <Flex flexDirection="column" my="2%" mx="5%" justifyContent="center" flexWrap="wrap">

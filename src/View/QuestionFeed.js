@@ -74,7 +74,7 @@ class QuestionFeed extends Component {
   };
   render() {
     const { user } = this.props;
-    console.log('here', user);
+
     const { questions, filter, sections, hideText } = this.state;
     const questionArray = questions
       ? Object.keys(questions).map(function(key) {
