@@ -28,7 +28,7 @@ class Code extends Component {
       });
   }
   render() {
-    if (!this.props.user.passcode) {
+    if (!this.props.user) {
       return <Redirect to="/" />;
     }
     return <Commit commits={this.state.commits} />;
