@@ -18,15 +18,13 @@ class QuestionForm extends Component {
 
   static defaultProps = {
     handleFormSubmit: () => {},
-    imgSrc:
-      'https://s-media-cache-ak0.pinimg.com/originals/4a/33/0f/4a330f8fabfda8fd3009543e816951b1.gif',
+    imgSrc: 'https://assets.skooldio.com/icon/face10_b.svg',
     sections: [],
   };
 
   state = { question: '', section: '' };
 
   handleChange = (e, { name, value }) => {
-    console.log(name, value);
     this.setState({ [name]: value });
   };
 
@@ -42,9 +40,7 @@ class QuestionForm extends Component {
     const { imgSrc, sections } = this.props;
     return (
       <Flex mb={2} mx={4} justifyContent="center" alignItems="flex-start" flexWrap="wrap">
-        <Circle size={128} bg="pink" mx={2} my={2}>
-          <Image src={imgSrc} />
-        </Circle>
+        <Image width={108} src={imgSrc} p={2} />
         <Box width={[1, 1 / 2]}>
           <Form onSubmit={this.handleSubmit}>
             <Box width={1} p={2}>

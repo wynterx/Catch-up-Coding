@@ -7,21 +7,27 @@ import QuestionFeed from './View/QuestionFeed';
 
 export default class Main extends Component {
   state = {
-    user: 'Anonymous',
+    user: { passcode: '', displayName: '', imgSrc: '' },
   };
 
   componentDidMount() {
-    const user = this.props.location.state;
-    if (user) {
-      this.setState({ user: user.user ? user.user : 'Anonymous' });
-    }
+    const { user } = this.props.location.state;
+
+    this.setState({
+      user: {
+        displayName: user.displayName ? user.displayName : 'anonymous',
+        imgSrc: user.imgSrc ? user.imgSrc : 'https://assets.skooldio.com/icon/face10_b.svg',
+        passcode: user.passcode ? user.passcode : '000',
+      },
+    });
   }
   render() {
+    const { user } = this.state;
     return (
       <Fragment>
-        <Header isLogin user={this.state.user} />
-        <Route path="/main/qa" component={() => <QuestionFeed user={this.state.user} />} />
-        <Route path="/main/code" component={() => <Code user={this.state.user} />} />
+        <Header isLogin user={user} />
+        <Route path="/main/qa" component={() => <QuestionFeed user={user} />} />
+        <Route path="/main/code" component={() => <Code />} />
       </Fragment>
     );
   }
