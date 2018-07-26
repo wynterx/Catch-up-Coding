@@ -27,6 +27,7 @@ class QuestionFeed extends Component {
     }).isRequired,
   };
   state = {
+    hideText: false,
     questions: [],
     filter: {},
     sections: [
@@ -38,12 +39,18 @@ class QuestionFeed extends Component {
   };
 
   componentDidMount() {
+    window.addEventListener('resize', this.resize());
+
     this.firebaseRef = firebase.database().ref('/post');
 
     this.firebaseCallback = this.firebaseRef.on('value', snap => {
       const questions = snap.val();
       this.setState({ questions: questions });
     });
+  }
+
+  resize() {
+    this.setState({ hideText: window.innerWidth <= 760 });
   }
 
   componentWillUnmount() {
@@ -67,7 +74,7 @@ class QuestionFeed extends Component {
   render() {
     const { user } = this.props;
 
-    const { questions, filter, sections } = this.state;
+    const { questions, filter, sections, hideText } = this.state;
     const questionArray = questions
       ? Object.keys(questions).map(function(key) {
           return { ...questions[key], id: key };
@@ -96,6 +103,7 @@ class QuestionFeed extends Component {
             {filteredFeedItem.reverse().map(e => {
               return (
                 <FeedItem
+                  hideText={hideText}
                   sections={sections}
                   firebase={this.firebaseRef}
                   answers={e.answers}

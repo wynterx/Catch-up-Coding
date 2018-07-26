@@ -81,7 +81,7 @@ class FeedItem extends Component {
   };
 
   render() {
-    const { user, question, section, likes, answers = [], sections, passcode } = this.props;
+    const { user, question, section, likes, answers = [], hideText, passcode } = this.props;
     const { expand } = this.state;
     const sectionText = section == 0 ? 'General' : `Section ${section}`;
     let liked = false;
@@ -108,14 +108,17 @@ class FeedItem extends Component {
               <Text primary>{user.displayName}</Text>
             </Feed.User>
             <Feed.Date>{sectionText}</Feed.Date>
-            <Button basic size="mini" floated="right" onClick={this.handleExpand}>
+            <Button basic size="mini" floated="right" onClick={this.handleExpand} icon={hideText}>
               <Icon name={expand ? 'chevron up' : 'chevron down'} />
-              {expand ? 'Hide all answers' : 'Show all answers'}
+              {!hideText && (expand ? 'Hide all answers' : 'Show all answers')}
             </Button>
-            <Button basic size="mini" floated="right" onClick={() => this.setState({ open: true })}>
-              <Icon name="trash" />
-              Delete question
-            </Button>
+            <Button
+              icon="trash"
+              basic
+              size="mini"
+              floated="right"
+              onClick={() => this.setState({ open: true })}
+            />
             <ConfirmModal
               open={this.state.open}
               onClose={this.handleCloseModal}
