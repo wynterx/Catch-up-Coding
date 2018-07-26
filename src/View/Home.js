@@ -45,7 +45,9 @@ class Home extends Component {
     if (this.state.redirect) {
       this.props.history.push({
         pathname: '/main/qa/',
-        state: { user: this.state.displayName, passcode: this.state.passcode },
+        state: {
+          user: { displayName: this.state.displayName, passcode: this.state.passcode, imgSrc },
+        },
       });
     }
     return (
