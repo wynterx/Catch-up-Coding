@@ -6,7 +6,7 @@ const AnswerItem = ({ user, answer }) => (
   <Feed.Event>
     <Feed.Content>
       <Feed.User>
-        <Text primary>{user}</Text>
+        <Text primary>{user.displayName}</Text>
       </Feed.User>
       : {answer}
     </Feed.Content>

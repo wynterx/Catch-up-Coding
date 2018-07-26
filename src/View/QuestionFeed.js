@@ -91,10 +91,8 @@ class QuestionFeed extends Component {
         <Box width={[1, 3 / 5]} pl={3}>
           <Feed>
             {questionArray.map(e => {
-              console.log(e);
               return (
                 <FeedItem
-                  // displayName={displayName}
                   sections={sections}
                   firebase={this.firebaseRef}
                   answers={e.answers}
