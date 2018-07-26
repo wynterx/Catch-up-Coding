@@ -115,7 +115,7 @@ class FeedItem extends Component {
 
     return (
       <Feed.Event style={{ borderBottom: '1px solid #eaeaea', marginBottom: '24px' }}>
-        <Box width={80} pr={2}>
+        <Box width={55} mr={2}>
           <Image src={user.imgSrc} />
         </Box>
         <Feed.Content width={1}>
