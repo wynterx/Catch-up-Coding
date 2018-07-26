@@ -110,11 +110,12 @@ class FeedItem extends Component {
           <Feed.Meta>
             <Feed.Like>
               {liked ? (
-                <Icon name="like" color="red">
+                <Button compact basic size="mini">
+                  <Icon name="like" color="red" />
                   {likeArray.length} Likes
-                </Icon>
+                </Button>
               ) : (
-                <Button onClick={this.handleLike}>
+                <Button compact basic size="mini" onClick={this.handleLike}>
                   <Icon name="like" />
                   {likeArray.length} Likes
                 </Button>
