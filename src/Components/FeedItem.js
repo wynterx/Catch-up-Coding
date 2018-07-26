@@ -31,10 +31,11 @@ class FeedItem extends Component {
     const questionId = this.props.id;
     const countLike = this.props.likes ? Object.keys(this.props.likes).length : 0;
     console.log(countLike);
+    console.log(questionId);
     this.props.firebase
       .child(questionId)
       .child('likes')
-      .set({
+      .push({
         [this.props.passcode]: 1,
       });
   };
@@ -80,19 +81,22 @@ class FeedItem extends Component {
   };
 
   render() {
-    const { user, question, section, likes, answers, sections, passcode } = this.props;
+    const { user, question, section, likes, answers = [], sections, passcode } = this.props;
     const { expand } = this.state;
     const sectionText = section == 0 ? 'General' : `Section ${section}`;
     let liked = false;
     const likeArray = likes
-      ? Object.keys(likes).map(function(key) {
-          if (key === passcode) {
-            liked = true;
-          }
-          return key;
+      ? Object.keys(likes).map(key => {
+          Object.keys(likes[key]).map(element => {
+            if (element == passcode) {
+              liked = true;
+            }
+          });
+
+          return likes[key];
         })
       : [];
-
+    console.log(likes);
     return (
       <Feed.Event style={{ borderBottom: '1px solid #eaeaea', marginBottom: '24px' }}>
         <Box>
@@ -123,11 +127,12 @@ class FeedItem extends Component {
           <Feed.Meta>
             <Feed.Like>
               {liked ? (
-                <Icon name="like" color="red">
+                <Button compact basic size="mini">
+                  <Icon name="like" color="red" />
                   {likeArray.length} Likes
-                </Icon>
+                </Button>
               ) : (
-                <Button onClick={this.handleLike}>
+                <Button compact basic size="mini" onClick={this.handleLike}>
                   <Icon name="like" />
                   {likeArray.length} Likes
                 </Button>
