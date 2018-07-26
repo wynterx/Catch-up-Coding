@@ -23,7 +23,7 @@ class Home extends Component {
   handleSubmit = () => {
     console.log('onclick', this.state);
     this.firebaseRef.set({
-      [this.state.passcode]: this.state.displayName,
+      [this.state.passcode]: this.state.displayName ? this.state.displayName : 'Anonymous',
     });
     this.setState({ redirect: true });
   };
