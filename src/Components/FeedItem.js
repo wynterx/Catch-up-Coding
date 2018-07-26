@@ -30,8 +30,6 @@ class FeedItem extends Component {
   handleLike = () => {
     const questionId = this.props.id;
     const countLike = this.props.likes ? Object.keys(this.props.likes).length : 0;
-    console.log(countLike);
-    console.log(questionId);
     this.props.firebase
       .child(questionId)
       .child('likes')
@@ -41,21 +39,17 @@ class FeedItem extends Component {
   };
 
   handleUnlike = () => {
-    console.log('unlike==============');
     const questionId = this.props.id;
     const likes = this.props.likes;
     let likeId = '';
     Object.keys(likes).map(key => {
       const like = likes[key];
       Object.keys(like).map(element => {
-        console.log(element, 'element');
         if (element == this.props.passcode) {
           likeId = key;
         }
       });
     });
-    console.log(likes);
-    console.log(likeId);
     this.props.firebase
       .child(questionId)
       .child('likes')
