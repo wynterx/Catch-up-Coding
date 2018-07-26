@@ -76,12 +76,7 @@ class QuestionFilter extends Component {
             />
           </Box>
           <Box width={1} p={2}>
-            <Form.Checkbox
-              fluid
-              label="Post by me"
-              name="postByUser"
-              onChange={this.handleChange}
-            />
+            <Form.Checkbox label="Post by me" name="postByUser" onChange={this.handleChange} />
           </Box>
 
           <Box width={1} align="center" p={2}>

@@ -7,6 +7,11 @@ export default class Header extends Component {
   static propTypes = {
     list: PropTypes.array,
     isLogin: PropTypes.bool,
+    user: PropTypes.shape({
+      passcode: PropTypes.string,
+      displayName: PropTypes.string,
+      imgSrc: PropTypes.string,
+    }).isRequired,
   };
   static defaultProps = {
     list: [{ name: 'Q&A', to: '/main/qa' }, { name: 'code', to: '/main/code' }],
@@ -48,7 +53,7 @@ export default class Header extends Component {
         <Menu.Menu position="right">
           <Menu.Item>
             <Text color="white">
-              <Icon size="small" name="user" /> {user}
+              <Icon size="small" name="user" /> {user.displayName}
             </Text>
           </Menu.Item>
           <Menu.Item name={isLogin ? 'logout' : 'login'} onClick={this.handleLogin} />

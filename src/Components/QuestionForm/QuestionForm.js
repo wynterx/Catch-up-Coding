@@ -25,7 +25,6 @@ class QuestionForm extends Component {
   state = { question: '', section: '' };
 
   handleChange = (e, { name, value }) => {
-    console.log(name, value);
     this.setState({ [name]: value });
   };
 

@@ -61,17 +61,17 @@ class FeedItem extends Component {
   };
 
   render() {
-    const { user, imgSrc, question, section, likes, answers, sections } = this.props;
+    const { user, question, section, likes, answers, sections } = this.props;
     const { expand } = this.state;
     return (
       <Feed.Event style={{ borderBottom: '1px solid #eaeaea', marginBottom: '24px' }}>
         <Box>
-          <Image src={imgSrc} width={50} mx={2} alignItems="flex-start" />
+          <Image src={user.imgSrc} width={50} mx={2} />
         </Box>
         <Feed.Content>
           <Feed.Summary>
             <Feed.User>
-              <Text primary>{user}</Text>
+              <Text primary>{user.displayName}</Text>
             </Feed.User>
             <Feed.Date>{section}</Feed.Date>
             <Button basic size="mini" floated="right" onClick={this.handleExpand}>

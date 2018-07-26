@@ -21,9 +21,7 @@ class Home extends Component {
     this.setState({ [key]: value });
   };
   handleSubmit = () => {
-    console.log('onclick', this.state);
     if (this.state.passcode === 'ching') {
-      console.log('SUCCESS');
       this.setState({ redirect: true });
     }
   };
@@ -31,7 +29,9 @@ class Home extends Component {
     if (this.state.redirect) {
       this.props.history.push({
         pathname: '/main/qa/',
-        state: { user: this.state.displayName, imgSrc: imgSrc },
+        state: {
+          user: { passcode: this.state.passcode, displayName: this.state.displayName, imgSrc },
+        },
       });
     }
     return (
