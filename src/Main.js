@@ -7,12 +7,17 @@ import QuestionFeed from './View/QuestionFeed';
 
 export default class Main extends Component {
   state = {
-    user: 'Anonymous',
-    passcode: '',
+    user: {
+      displayName: 'Anonymous',
+      passcode: '',
+      imgSrc: '',
+    },
   };
 
   componentDidMount() {
-    const user = this.props.location.state;
+    const { user } = this.props.location.state;
+    console.log('foxiucgjusdiokcsd');
+    console.log(user);
     if (user) {
       this.setState({
         user: {
@@ -26,17 +31,14 @@ export default class Main extends Component {
   }
   render() {
     const { user } = this.state;
-    if (user) {
+    if (!user) {
       return <Redirect to="/" />;
     }
     return (
       <Fragment>
         <Header isLogin user={this.state.user} />
-        <Route
-          path="/main/qa"
-          component={() => <QuestionFeed user={this.state.user} passcode={this.state.passcode} />}
-        />
-        <Route path="/main/code" component={() => <Code user={this.state.user} />} />
+        <Route path="/main/qa" component={() => <QuestionFeed user={user} />} />
+        <Route path="/main/code" component={() => <Code user={user} />} />
       </Fragment>
     );
   }
