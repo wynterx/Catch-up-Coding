@@ -74,7 +74,7 @@ class QuestionFeed extends Component {
         })
       : [];
     const filteredFeedItem = filterData(questionArray, filter, user);
-    if (user) {
+    if (!user) {
       return <Redirect to="/" />;
     }
     return (
@@ -93,7 +93,7 @@ class QuestionFeed extends Component {
         </Box>
         <Box width={[1, 3 / 5]} pl={3}>
           <Feed>
-            {questionArray.map(e => {
+            {filteredFeedItem.map(e => {
               return (
                 <FeedItem
                   sections={sections}

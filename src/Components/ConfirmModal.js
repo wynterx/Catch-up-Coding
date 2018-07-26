@@ -1,13 +1,8 @@
 import React from 'react';
 import { Modal, Button, Header, Icon } from 'semantic-ui-react';
 class ConfirmModal extends React.Component {
-  handleClose = () => {
-    const { onClose, onComfirm } = this.props;
-    onComfirm();
-    onClose();
-  };
   render() {
-    const { open, onClose } = this.props;
+    const { open, onClose, onConfirm } = this.props;
     return (
       <Modal size="small" open={open}>
         <Header icon="trash" content="Delete a question" />
@@ -15,10 +10,10 @@ class ConfirmModal extends React.Component {
           <p>Do you want to delete this question ?</p>
         </Modal.Content>
         <Modal.Actions>
-          <Button basic color="red" onClick={() => onClose}>
+          <Button basic color="red" onClick={onClose}>
             <Icon name="remove" /> No
           </Button>
-          <Button color="green" onClick={() => this.handleClose}>
+          <Button color="green" onClick={onConfirm}>
             <Icon name="checkmark" /> Yes
           </Button>
         </Modal.Actions>

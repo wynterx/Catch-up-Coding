@@ -21,7 +21,7 @@ export default class Main extends Component {
     if (user) {
       this.setState({
         user: {
-          displayName: user && user.displayName ? user.displayName : 'anonymous',
+          displayName: user && user.displayName ? user.displayName : 'Anonymous',
           imgSrc:
             user && user.imgSrc ? user.imgSrc : 'https://assets.skooldio.com/icon/face10_b.svg',
           passcode: user && user.passcode ? user.passcode : '000',

@@ -76,6 +76,7 @@ class FeedItem extends Component {
   handleDeleteQuestion = () => {
     const questionId = this.props.id;
     this.props.firebase.child(questionId).remove();
+    this.handleCloseModal();
   };
 
   render() {
