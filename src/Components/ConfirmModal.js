@@ -7,18 +7,18 @@ class ConfirmModal extends React.Component {
     onClose();
   };
   render() {
-    const { trigger, open, onClose } = this.props;
+    const { open, onClose } = this.props;
     return (
-      <Modal trigger={trigger} size="small" open={open}>
+      <Modal size="small" open={open}>
         <Header icon="trash" content="Delete a question" />
         <Modal.Content>
           <p>Do you want to delete this question ?</p>
         </Modal.Content>
         <Modal.Actions>
-          <Button basic color="red" onClick={this.onClose}>
+          <Button basic color="red" onClick={() => onClose}>
             <Icon name="remove" /> No
           </Button>
-          <Button color="green" onClick={this.handleClose}>
+          <Button color="green" onClick={() => this.handleClose}>
             <Icon name="checkmark" /> Yes
           </Button>
         </Modal.Actions>

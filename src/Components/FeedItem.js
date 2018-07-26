@@ -86,17 +86,14 @@ class FeedItem extends Component {
               <Icon name={expand ? 'chevron up' : 'chevron down'} />
               {expand ? 'Hide all answers' : 'Show all answers'}
             </Button>
+            <Button basic size="mini" floated="right" onClick={() => this.setState({ open: true })}>
+              <Icon name="trash" />
+              Delete question
+            </Button>
             <ConfirmModal
               open={this.state.open}
-              onClick={() => this.setState({ open: true })}
               onClose={this.handleCloseModal}
               onConfirm={this.handleDeleteQuestion}
-              trigger={
-                <Button basic size="mini" floated="right">
-                  <Icon name="trash" />
-                  Delete question
-                </Button>
-              }
             />
           </Feed.Summary>
           {question}
