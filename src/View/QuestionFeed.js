@@ -76,6 +76,7 @@ class QuestionFeed extends Component {
         })
       : [];
     const filteredFeedItem = filterData(questionArray, filter, user);
+
     return (
       <Flex flexWrap="wrap" my="2%" mx="5%" justifyContent="center">
         <Box width={1} mb={3}>
@@ -92,7 +93,7 @@ class QuestionFeed extends Component {
         </Box>
         <Box width={[1, 3 / 5]} pl={3}>
           <Feed>
-            {questionArray.map(e => {
+            {filteredFeedItem.reverse().map(e => {
               return (
                 <FeedItem
                   displayName={user}
